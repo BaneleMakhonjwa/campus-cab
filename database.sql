@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 19, 2026 at 11:14 PM
+-- Generation Time: Aug 22, 2026 at 01:42 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -42,7 +42,7 @@ INSERT INTO `campus_location` (`location_id`, `name`, `latitude`, `longitude`) V
 (1, 'Beda Hall', -32.7830000, 26.8430000),
 (2, 'Steve Biko Hall', -32.7810000, 26.8400000),
 (3, 'Chris Hani Hall', -32.7845000, 26.8410000),
-(4, 'New Res', -32.7855000, 26.8465000),
+(4, 'Student Village', -32.7855000, 26.8465000),
 (5, 'Main Library', -32.7850000, 26.8460000),
 (6, 'Science Building', -32.7845000, 26.8455000),
 (7, 'Admin Building', -32.7838000, 26.8442000),
@@ -73,7 +73,7 @@ CREATE TABLE `driver` (
 --
 
 INSERT INTO `driver` (`DriverID`, `DriverFname`, `DriverLname`, `DriverEmail`, `DriverPhoneNo`, `driverAccount_Status`, `licence_number`, `availability_status`, `password`) VALUES
-(1, 'Driver1', 'Surname1', 'driver1@gmail.com', '600000001', 'Active', 'LIC0001', 'Available', '$2y$10$70Z.uxXt8ZD6/9DMj4TlQeMPLO9nluPQcx42LvxHrVdPOnBzkA.jC'),
+(1, 'Anele', 'Buxoki', 'buxokianele@gmail.com', '0652328710', 'Active', 'EC 324 JP', 'Available', '$2y$10$70Z.uxXt8ZD6/9DMj4TlQeMPLO9nluPQcx42LvxHrVdPOnBzkA.jC'),
 (2, 'Driver2', 'Surname2', 'driver2@gmail.com', '600000002', 'Active', 'LIC0002', 'Available', '$2y$10$70Z.uxXt8ZD6/9DMj4TlQeMPLO9nluPQcx42LvxHrVdPOnBzkA.jC'),
 (3, 'Driver3', 'Surname3', 'driver3@gmail.com', '600000003', 'Active', 'LIC0003', 'Available', '$2y$10$70Z.uxXt8ZD6/9DMj4TlQeMPLO9nluPQcx42LvxHrVdPOnBzkA.jC'),
 (4, 'Driver4', 'Surname4', 'driver4@gmail.com', '600000004', 'Active', 'LIC0004', 'Available', '$2y$10$70Z.uxXt8ZD6/9DMj4TlQeMPLO9nluPQcx42LvxHrVdPOnBzkA.jC'),
@@ -83,6 +83,33 @@ INSERT INTO `driver` (`DriverID`, `DriverFname`, `DriverLname`, `DriverEmail`, `
 (8, 'Driver8', 'Surname8', 'driver8@gmail.com', '600000008', 'Active', 'LIC0008', 'Available', '$2y$10$70Z.uxXt8ZD6/9DMj4TlQeMPLO9nluPQcx42LvxHrVdPOnBzkA.jC'),
 (9, 'Driver9', 'Surname9', 'driver9@gmail.com', '600000009', 'Active', 'LIC0009', 'Available', '$2y$10$70Z.uxXt8ZD6/9DMj4TlQeMPLO9nluPQcx42LvxHrVdPOnBzkA.jC'),
 (10, 'Driver10', 'Surname10', 'driver10@gmail.com', '600000010', 'Active', 'LIC0010', 'Available', '$2y$10$70Z.uxXt8ZD6/9DMj4TlQeMPLO9nluPQcx42LvxHrVdPOnBzkA.jC');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `grocery_orders`
+--
+
+CREATE TABLE `grocery_orders` (
+  `id` int(11) NOT NULL,
+  `student_id` int(11) NOT NULL,
+  `driver_id` int(11) DEFAULT NULL,
+  `store_name` varchar(100) NOT NULL,
+  `items_list` text NOT NULL,
+  `max_budget` decimal(10,2) NOT NULL,
+  `receipt_total` decimal(10,2) DEFAULT NULL,
+  `receipt_image` varchar(255) DEFAULT NULL,
+  `status` enum('PENDING','ACCEPTED','BUYING','DELIVERING','COMPLETED') DEFAULT 'PENDING',
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `grocery_orders`
+--
+
+INSERT INTO `grocery_orders` (`id`, `student_id`, `driver_id`, `store_name`, `items_list`, `max_budget`, `receipt_total`, `receipt_image`, `status`, `created_at`) VALUES
+(1, 3, 9, 'Spar', 'Bonnita milk 2l\r\nplain yogurt\r\nonion 2kg\r\ntomato 1kg\r\ncheese 500g', 250.00, NULL, NULL, 'COMPLETED', '2026-08-21 20:55:50'),
+(2, 3, 9, 'Champs', 'combo 3X2', 100.00, NULL, 'uploads/receipts/receipt_2_1787346838.png', 'COMPLETED', '2026-08-21 21:12:50');
 
 -- --------------------------------------------------------
 
@@ -225,24 +252,26 @@ INSERT INTO `ride` (`rideID`, `studentID`, `DriverID`, `pickup_address`, `pickup
 
 CREATE TABLE `student` (
   `studentID` int(11) NOT NULL,
+  `studentNumber` varchar(20) DEFAULT NULL,
   `studentFname` varchar(50) NOT NULL,
   `studentLname` varchar(50) NOT NULL,
   `studentEmail` varchar(50) NOT NULL,
   `studentPhoneNo` varchar(15) NOT NULL,
   `studentAccount_status` enum('Active','Inactive') DEFAULT 'Active',
-  `password` varchar(255) NOT NULL DEFAULT ''
+  `studentPwd` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `student`
 --
 
-INSERT INTO `student` (`studentID`, `studentFname`, `studentLname`, `studentEmail`, `studentPhoneNo`, `studentAccount_status`, `password`) VALUES
-(1, 'Bongani', 'Mthembu', 'bonganimthembu@gmail.com', '632423457', 'Active', '$2y$10$70Z.uxXt8ZD6/9DMj4TlQeMPLO9nluPQcx42LvxHrVdPOnBzkA.jC'),
-(2, 'Noluthando', 'Ndlovu', 'noluthandondlovu@gmail.com', '632076543', 'Active', '$2y$10$70Z.uxXt8ZD6/9DMj4TlQeMPLO9nluPQcx42LvxHrVdPOnBzkA.jC'),
-(3, 'Sipho', 'Xaba', 'siphoxaba@gmail.com', '714567890', 'Active', '$2y$10$70Z.uxXt8ZD6/9DMj4TlQeMPLO9nluPQcx42LvxHrVdPOnBzkA.jC'),
-(4, 'Zoleka', 'Dlamini', 'zolekadlamini@gmail.com', '723456789', 'Inactive', '$2y$10$70Z.uxXt8ZD6/9DMj4TlQeMPLO9nluPQcx42LvxHrVdPOnBzkA.jC'),
-(5, 'Lwazi', 'Mokoena', 'lwazimokoena@gmail.com', '612345678', 'Active', '$2y$10$70Z.uxXt8ZD6/9DMj4TlQeMPLO9nluPQcx42LvxHrVdPOnBzkA.jC');
+INSERT INTO `student` (`studentID`, `studentNumber`, `studentFname`, `studentLname`, `studentEmail`, `studentPhoneNo`, `studentAccount_status`, `studentPwd`) VALUES
+(1, NULL, 'Bongani', 'Mthembu', 'bonganimthembu@gmail.com', '632423457', 'Active', '$2y$10$70Z.uxXt8ZD6/9DMj4TlQeMPLO9nluPQcx42LvxHrVdPOnBzkA.jC'),
+(2, NULL, 'Noluthando', 'Ndlovu', 'noluthandondlovu@gmail.com', '632076543', 'Active', '$2y$10$70Z.uxXt8ZD6/9DMj4TlQeMPLO9nluPQcx42LvxHrVdPOnBzkA.jC'),
+(3, NULL, 'Sipho', 'Xaba', 'siphoxaba@gmail.com', '714567890', 'Active', '$2y$10$70Z.uxXt8ZD6/9DMj4TlQeMPLO9nluPQcx42LvxHrVdPOnBzkA.jC'),
+(4, NULL, 'Zoleka', 'Dlamini', 'zolekadlamini@gmail.com', '723456789', 'Inactive', '$2y$10$70Z.uxXt8ZD6/9DMj4TlQeMPLO9nluPQcx42LvxHrVdPOnBzkA.jC'),
+(5, NULL, 'Lwazi', 'Mokoena', 'lwazimokoena@gmail.com', '612345678', 'Active', '$2y$10$70Z.uxXt8ZD6/9DMj4TlQeMPLO9nluPQcx42LvxHrVdPOnBzkA.jC'),
+(6, '225074411', 'Banele', 'Makhonjwa', '225074411@ufh.ac.za', '0652428564', 'Active', '$2y$10$Zp2PiGBZSm9CYuljEpbpX.jBryv3XVDAf/b3RRS5gaepgbJFRVEH2');
 
 -- --------------------------------------------------------
 
@@ -290,6 +319,12 @@ ALTER TABLE `driver`
   ADD UNIQUE KEY `licence_number` (`licence_number`);
 
 --
+-- Indexes for table `grocery_orders`
+--
+ALTER TABLE `grocery_orders`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `location`
 --
 ALTER TABLE `location`
@@ -333,7 +368,8 @@ ALTER TABLE `ride`
 --
 ALTER TABLE `student`
   ADD PRIMARY KEY (`studentID`),
-  ADD UNIQUE KEY `studentEmail` (`studentEmail`);
+  ADD UNIQUE KEY `studentEmail` (`studentEmail`),
+  ADD UNIQUE KEY `studentNumber` (`studentNumber`);
 
 --
 -- Indexes for table `vehicle`
@@ -358,6 +394,12 @@ ALTER TABLE `campus_location`
 --
 ALTER TABLE `driver`
   MODIFY `DriverID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT for table `grocery_orders`
+--
+ALTER TABLE `grocery_orders`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `location`
@@ -393,7 +435,7 @@ ALTER TABLE `ride`
 -- AUTO_INCREMENT for table `student`
 --
 ALTER TABLE `student`
-  MODIFY `studentID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `studentID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `vehicle`
