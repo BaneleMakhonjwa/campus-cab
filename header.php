@@ -19,18 +19,24 @@ $isDriver = isset($_SESSION['driver_id']);
     <nav>
         <?php if ($isStudent): ?>
             <a href="request.php">Request a Ride</a>
+            <a href="request_grocery.php">🛒 Request Personal shopper</a>  <!-- 🆕 NEW -->
+            <a href="view_orders.php">📦 My Orders</a>           <!-- 🆕 NEW -->
             <a href="my_rides.php">My Rides</a>
             <span class="who">Hi, <?php echo htmlspecialchars($_SESSION['student_name']); ?></span>
             <a href="logout.php" class="btn-outline">Log out</a>
+            
         <?php elseif ($isDriver): ?>
             <a href="driver.php">Open Requests</a>
+            <a href="driver_orders.php">🚗 Grocery Orders</a>    <!-- 🆕 NEW -->
             <a href="my_trips.php">My Trips</a>
             <span class="who">Hi, <?php echo htmlspecialchars($_SESSION['driver_name']); ?></span>
             <a href="logout.php" class="btn-outline">Log out</a>
-        <?php else: ?>
-            <a href="login_student.php">Student Login</a>
-            <a href="login_driver.php" class="btn-outline">Driver Login</a>
-        <?php endif; ?>
+            
+    <?php else: ?>
+    <a href="register_student.php">📝 Register</a>
+    <a href="login_student.php">Student Login</a>
+    <a href="login_driver.php" class="btn-outline">Driver Login</a>
+<?php endif; ?>
     </nav>
 </header>
 <main>
