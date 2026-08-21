@@ -9,7 +9,7 @@ $isLoggedIn = isset($_SESSION['student_id']) || isset($_SESSION['driver_id']);
 <?php if (!$isLoggedIn): ?>
 <section class="hero">
     <h1>Getting around campus, sorted.</h1>
-    <p>Book a ride, get food delivered, or drive and earn — all in one place.</p>
+    <p>Book a ride, get food delivered or drive and earn — all in one place.</p>
     <div class="hero-actions">
         <a href="register_student.php" class="btn-primary">📝 Register</a>
         <a href="login_student.php" class="btn-outline-light">🧑🏿‍🎓I'm a student</a>
