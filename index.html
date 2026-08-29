@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Campus-Ride — Admin Console</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div class="fd-root">
+  <div class="fd-shell">
+
+    <aside class="fd-sidebar">
+
+      <!-- Campus-Ride Brand -->
+      <div class="fd-brand">
+
+        <div class="fd-brand-mark">
+          <svg viewBox="0 0 24 24" width="19" height="19" fill="none"
+            stroke="currentColor" stroke-width="2.2"
+            stroke-linecap="round" stroke-linejoin="round">
+
+            <path d="M19 17h1a1 1 0 0 0 1-1v-3.28a2 2 0 0 0-.32-1.09L18.16 7.6A2 2 0 0 0 16.48 6.7H7.52A2 2 0 0 0 5.84 7.6L3.32 11.63A2 2 0 0 0 3 12.72V16a1 1 0 0 0 1 1h1"/>
+            <path d="M5 17h9"/>
+            <circle cx="7" cy="17" r="2"/>
+            <circle cx="17" cy="17" r="2"/>
+
+          </svg>
+        </div>
+
+        <div class="fd-brand-text">
+
+          <div class="fd-brand-title">
+            Campus-Ride
+          </div>
+
+          <div class="fd-brand-sub">
+           Ops console
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- Navigation -->
+      <nav class="fd-nav" id="fd-nav">
+        <!-- nav items are rendered by app.js so their counts stay in sync -->
+      </nav>
+
+      <!-- Sidebar Footer -->
+      <div class="fd-sidebar-foot">
+        Signed in as
+        <strong style="color: var(--muted);">
+          Ops Admin
+        </strong>
+        <br>
+        Alice region
+      </div>
+
+    </aside>
+
+    <!-- Main Content -->
+    <main class="fd-main">
+
+      <div class="fd-topline">
+
+        <div>
+
+          <div class="fd-h1" id="fd-title">
+            Overview
+          </div>
+
+          <div class="fd-h1-sub" id="fd-subtitle">
+            Today's queue across approvals, complaints, and payouts
+          </div>
+
+        </div>
+
+        <div class="fd-date fd-mono" id="fd-date"></div>
+
+      </div>
+
+      <!-- Active tab content -->
+      <div id="fd-tab-content">
+        <!-- active tab renders here -->
+      </div>
+
+    </main>
+
+  </div>
+
+  <!-- Toast notifications -->
+  <div id="fd-toast-slot"></div>
+
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>
