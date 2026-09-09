@@ -87,7 +87,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     
                     // Insert new student
                     $insert_sql = "INSERT INTO student (studentNumber, studentFname, studentLname, studentEmail, studentPhoneNo, studentPwd, verification_token, token_expiry, email_verified) 
-                                   VALUES (?, ?, ?, ?, ?, ?, ?, ?, 0)";
+                                   VALUES (?, ?, ?, ?, ?, ?, ?, ?, 1)";
                     $insert_stmt = $conn->prepare($insert_sql);
                     $insert_stmt->bind_param("ssssssss", $student_number, $first_name, $last_name, $email, $phone, $hashed_password, $verification_token, $token_expiry);
                     
@@ -235,7 +235,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <div class="form-row">
                     <div class="form-group half">
                         <label for="studentPWD">Password *</label>
-                        <input type="password" id="studentPWD" name="studentPWD" placeholder="Min 8 characters" required>
+                        <input type="password" id="studentPWD" name="studentPWD" placeholder="Enter password" required>
                         <small>Password must contain: 8+ chars, uppercase, lowercase, number & special character</small>
                     </div>
                     <div class="form-group half">
@@ -262,7 +262,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <button type="submit" class="btn-primary btn-block">✅ Register</button>
                 
                 <p class="login-link">
-                    Already have an account? <a href="login_student.php">Login here</a>
+                    Already have an account? <a href="login.php">Login here</a>
                 </p>
             </form>
             <?php endif; ?>
