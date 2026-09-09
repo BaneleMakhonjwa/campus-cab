@@ -1,14 +1,9 @@
 <?php
 session_start();
-<<<<<<< HEAD
 include 'db_connect.php';
 
 // Set page title for header
-$pageTitle = "Login";
-=======
-
-include 'db_connect.php';
->>>>>>> 8930311c38b8fcc9985224cf77a736ac5ca35196
+$pageTitle = "Change password";
 
 $error = "";
 $selectedRole = "student";
@@ -22,13 +17,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Check email and password
     if (empty($email) || empty($password)) {
-<<<<<<< HEAD
         $error = "Please enter your email and password.";
-=======
-
-        $error = "Please enter your email and password.";
-
->>>>>>> 8930311c38b8fcc9985224cf77a736ac5ca35196
     } else {
 
         // =========================
@@ -52,7 +41,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             if ($student && password_verify($password, $student['studentPwd'])) {
 
                 $_SESSION['student_id'] = $student['studentID'];
-<<<<<<< HEAD
                 $_SESSION['student_name'] = $student['studentFname'] . ' ' . $student['studentLname'];
                 $_SESSION['role'] = "student";
 
@@ -64,30 +52,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 exit;
 
             } else {
-=======
-
-                $_SESSION['student_name'] =
-                    $student['studentFname'] . ' ' .
-                    $student['studentLname'];
-
-                $_SESSION['role'] = "student";
-
-                header("Location: request.php");
-                exit;
-
-            } else {
-
->>>>>>> 8930311c38b8fcc9985224cf77a736ac5ca35196
                 $error = "Incorrect email or password.";
             }
 
             mysqli_stmt_close($stmt);
         }
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 8930311c38b8fcc9985224cf77a736ac5ca35196
         // =========================
         // DRIVER LOGIN
         // =========================
@@ -109,7 +79,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             if ($driver && password_verify($password, $driver['password'])) {
 
                 $_SESSION['driver_id'] = $driver['DriverID'];
-<<<<<<< HEAD
                 $_SESSION['driver_name'] = $driver['DriverFname'] . ' ' . $driver['DriverLname'];
                 $_SESSION['role'] = "driver";
 
@@ -121,68 +90,75 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 exit;
 
             } else {
-=======
-
-                $_SESSION['driver_name'] =
-                    $driver['DriverFname'] . ' ' .
-                    $driver['DriverLname'];
-
-                $_SESSION['role'] = "driver";
-
-                header("Location: driver.php");
-                exit;
-
-            } else {
-
->>>>>>> 8930311c38b8fcc9985224cf77a736ac5ca35196
                 $error = "Incorrect email or password.";
             }
 
             mysqli_stmt_close($stmt);
         }
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 8930311c38b8fcc9985224cf77a736ac5ca35196
         // =========================
         // STAFF LOGIN
         // =========================
         elseif ($selectedRole == "staff") {
-<<<<<<< HEAD
-            $error = "Staff login is not available yet.";
+
+            $stmt = mysqli_prepare(
+                $conn,
+                "SELECT * FROM staff
+                 WHERE staff_email = ?"
+            );
+
+            mysqli_stmt_bind_param($stmt, "s", $email);
+            mysqli_stmt_execute($stmt);
+
+            $result = mysqli_stmt_get_result($stmt);
+            $staff = mysqli_fetch_assoc($result);
+
+            if ($staff && password_verify($password, $staff['password'])) {
+
+                $_SESSION['staff_id'] = $staff['staff_id'];
+                $_SESSION['staff_name'] = $staff['staff_name'] . ' ' . $staff['surname'];
+                $_SESSION['role'] = "staff";
+
+                if (file_exists('staff_dashboard.php')) {
+                    header("Location: staff_dashboard.php");
+                } else {
+                    header("Location: index.php");
+                }
+                exit;
+
+            } else {
+                $error = "Incorrect email or password.";
+            }
+
+            mysqli_stmt_close($stmt);
         }
 
-=======
-
-            $error = "Staff login is not available yet.";
-        }
-
-
->>>>>>> 8930311c38b8fcc9985224cf77a736ac5ca35196
         // =========================
         // ADMIN LOGIN
         // =========================
         elseif ($selectedRole == "admin") {
-<<<<<<< HEAD
-            $error = "Admin login is not available yet.";
+
+            // For now, hardcoded admin check (you can change this later)
+            if ($email === 'admin@campus.com' && $password === 'Admin123!') {
+                $_SESSION['admin_id'] = 1;
+                $_SESSION['admin_name'] = 'Administrator';
+                $_SESSION['role'] = "admin";
+
+                if (file_exists('admin_dashboard.php')) {
+                    header("Location: admin_dashboard.php");
+                } else {
+                    header("Location: index.php");
+                }
+                exit;
+            } else {
+                $error = "Incorrect admin credentials.";
+            }
         }
 
-=======
-
-            $error = "Admin login is not available yet.";
-        }
-
-
->>>>>>> 8930311c38b8fcc9985224cf77a736ac5ca35196
         // =========================
         // INVALID ROLE
         // =========================
         else {
-<<<<<<< HEAD
-=======
-
->>>>>>> 8930311c38b8fcc9985224cf77a736ac5ca35196
             $error = "Invalid role selected.";
         }
     }
@@ -193,14 +169,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <html lang="en">
 
 <head>
-<<<<<<< HEAD
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo isset($pageTitle) ? htmlspecialchars($pageTitle) . ' — Campus Cab' : 'Campus Cab & Delivery'; ?></title>
     <link rel="stylesheet" href="style.css">
     
     <style>
-        /* Login Page Specific Styles - Now inside container */
+        /* Login Page Specific Styles */
         .login-wrapper {
             display: flex;
             justify-content: center;
@@ -378,23 +353,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             }
         }
     </style>
-=======
-
-    <meta charset="UTF-8">
-
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
-
-    <title>Campus Cab - Login</title>
-
-    <link rel="stylesheet" href="style.css">
-
->>>>>>> 8930311c38b8fcc9985224cf77a736ac5ca35196
 </head>
 
 <body>
 
-<<<<<<< HEAD
     <!-- ✅ HEADER INCLUDED -->
     <?php include 'header.php'; ?>
 
@@ -511,202 +473,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         </div>
     </div>
-
-    <!-- ✅ FOOTER INCLUDED -->
     <?php include 'footer.php'; ?>
 
 </body>
 </html>
-=======
-<div class="auth-card">
-
-    <h1>Campus Cab</h1>
-
-    <h2>Login</h2>
-
-
-    <!-- ERROR MESSAGE -->
-
-    <?php if (!empty($error)): ?>
-
-        <div class="msg error">
-            <?php echo htmlspecialchars($error); ?>
-        </div>
-
-    <?php endif; ?>
-
-
-    <form method="POST" action="login.php">
-
-
-        <!-- ROLE SELECTION -->
-
-        <p>
-            <strong>Please choose your role:</strong>
-        </p>
-
-        <div class="role-options">
-
-            <!-- STUDENT -->
-
-            <label>
-
-                <input
-                    type="radio"
-                    name="role"
-                    value="student"
-                    <?php
-                    if ($selectedRole == "student")
-                        echo "checked";
-                    ?>
-                    required
-                >
-
-                Student
-
-            </label>
-
-
-            <!-- DRIVER -->
-
-            <label>
-
-                <input
-                    type="radio"
-                    name="role"
-                    value="driver"
-                    <?php
-                    if ($selectedRole == "driver")
-                        echo "checked";
-                    ?>
-                >
-
-                Driver
-
-            </label>
-
-
-            <!-- STAFF -->
-
-            <label>
-
-                <input
-                    type="radio"
-                    name="role"
-                    value="staff"
-                    <?php
-                    if ($selectedRole == "staff")
-                        echo "checked";
-                    ?>
-                >
-
-                Staff
-
-            </label>
-
-
-            <!-- ADMIN -->
-
-            <label>
-
-                <input
-                    type="radio"
-                    name="role"
-                    value="admin"
-                    <?php
-                    if ($selectedRole == "admin")
-                        echo "checked";
-                    ?>
-                >
-
-                Admin
-
-            </label>
-
-        </div>
-
-
-        <!-- EMAIL -->
-
-        <label for="email">
-            Email
-        </label>
-
-        <input
-            type="email"
-            id="email"
-            name="email"
-            placeholder="Enter your email"
-            value="<?php echo htmlspecialchars($email); ?>"
-            required
-        >
-
-
-        <!-- PASSWORD -->
-
-        <label for="password">
-            Password
-        </label>
-
-        <input
-            type="password"
-            id="password"
-            name="password"
-            placeholder="Enter your password"
-            required
-        >
-
-
-        <!-- LOGIN AND CANCEL BUTTONS -->
-
-        <div class="login-buttons">
-
-            <button
-                type="submit"
-                name="login">
-                LOGIN
-            </button>
-
-
-            <button
-                type="reset"
-                class="cancel-button">
-                CANCEL
-            </button>
-
-        </div>
-
-
-        <!-- FORGOT PASSWORD -->
-
-        <div class="login-links">
-
-            <p>
-                <a href="forgot_password.php">
-                    Forgot password?
-                </a>
-            </p>
-
-
-            <!-- REGISTER -->
-
-            <p>
-
-                You are not registered?
-
-                <a href="register_student.php">
-                    REGISTER
-                </a>
-
-            </p>
-
-        </div>
-
-    </form>
-
-</div>
-
-</body>
-
-</html>
->>>>>>> 8930311c38b8fcc9985224cf77a736ac5ca35196
