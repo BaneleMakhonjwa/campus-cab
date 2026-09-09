@@ -1,101 +1,906 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Campus-Ride — Admin Console</title>
-<link rel="stylesheet" href="styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Campus Cab - Admin Dashboard</title>
+       <link rel="stylesheet"
+       href="styles.css">
+
 </head>
+
+
 <body>
 
-<div class="fd-root">
-  <div class="fd-shell">
 
-    <aside class="fd-sidebar">
+<!-- ================= SIDEBAR ================= -->
 
-      <!-- Campus-Ride Brand -->
-      <div class="fd-brand">
+<div class="sidebar">
 
-        <div class="fd-brand-mark">
-          <svg viewBox="0 0 24 24" width="19" height="19" fill="none"
-            stroke="currentColor" stroke-width="2.2"
-            stroke-linecap="round" stroke-linejoin="round">
+    <h2>🚕 Campus Cab</h2>
 
-            <path d="M19 17h1a1 1 0 0 0 1-1v-3.28a2 2 0 0 0-.32-1.09L18.16 7.6A2 2 0 0 0 16.48 6.7H7.52A2 2 0 0 0 5.84 7.6L3.32 11.63A2 2 0 0 0 3 12.72V16a1 1 0 0 0 1 1h1"/>
-            <path d="M5 17h9"/>
-            <circle cx="7" cy="17" r="2"/>
-            <circle cx="17" cy="17" r="2"/>
+    <button class="menu active" onclick="showPage('dashboard', this)">
+        🏠 Overview
+    </button>
 
-          </svg>
-        </div>
+    <button class="menu" onclick="showPage('drivers', this)">
+        🚗 Approve Drivers
+    </button>
 
-        <div class="fd-brand-text">
+    <button class="menu" onclick="showPage('complaints', this)">
+        📢 Complaints
+    </button>
 
-          <div class="fd-brand-title">
-            Campus-Ride
-          </div>
+    <button class="menu" onclick="showPage('students', this)">
+        🎓 Students
+    </button>
 
-          <div class="fd-brand-sub">
-           Ops console
-          </div>
+    <button class="menu" onclick="showPage('staff', this)">
+        👨‍🏫 Staff
+    </button>
+    <button class="menu" onclick="showPage('driversList', this)">
+    🚕 Drivers
+</button>
+    <button class="menu" onclick="showPage('ratings', this)">
+        ⭐ Driver Ratings
+    </button>
 
-        </div>
+    <button class="menu" onclick="showPage('reimbursement', this)">
+        💵 Driver Compensation
+    </button>
 
-      </div>
+    <button class="menu" onclick="showPage('driverCompensation', this)">
+        💵 Trip Earnings
 
-      <!-- Navigation -->
-      <nav class="fd-nav" id="fd-nav">
-        <!-- nav items are rendered by app.js so their counts stay in sync -->
-      </nav>
-
-      <!-- Sidebar Footer -->
-      <div class="fd-sidebar-foot">
-        Signed in as
-        <strong style="color: var(--muted);">
-          Ops Admin
-        </strong>
-        <br>
-        Alice region
-      </div>
-
-    </aside>
-
-    <!-- Main Content -->
-    <main class="fd-main">
-
-      <div class="fd-topline">
-
-        <div>
-
-          <div class="fd-h1" id="fd-title">
-            Overview
-          </div>
-
-          <div class="fd-h1-sub" id="fd-subtitle">
-            Today's queue across approvals, complaints, and payouts
-          </div>
-
-        </div>
-
-        <div class="fd-date fd-mono" id="fd-date"></div>
-
-      </div>
-
-      <!-- Active tab content -->
-      <div id="fd-tab-content">
-        <!-- active tab renders here -->
-      </div>
-
-    </main>
-
-  </div>
-
-  <!-- Toast notifications -->
-  <div id="fd-toast-slot"></div>
+    <button class="menu" onclick="showPage('settings', this)">
+        ⚙️ System Settings
+    </button>
 
 </div>
 
-<script src="script.js"></script>
 
+
+<!-- ================= MAIN ================= -->
+
+<div class="main">
+
+
+<!-- ================= DASHBOARD ================= -->
+
+<div id="dashboard" class="page active">
+
+    <div class="header">
+
+        <h1> Admin Dashboard</h1>
+
+        <p>
+            Welcome to the Campus Cab administration system.
+        </p>
+
+    </div>
+<div class="cards">
+
+    <div class="card">
+        <h3>Total Active Users</h3>
+        <p id="activeUsersCount">18500</p>
+    </div>
+
+    <div class="card">
+        <h3>Students</h3>
+        <p id="studentCount">17500</p>
+    </div>
+
+    <div class="card">
+        <h3>Staff</h3>
+        <p id="staffCount">1000</p>
+    </div>
+
+    <div class="card">
+        <h3>Drivers</h3>
+        <p id="driverCount">100</p>
+    </div>
+
+    <div class="card">
+        <h3>Cancelled Rides</h3>
+        <p id="cancelledRidesCount">14</p>
+    </div>
+
+</div>
+
+
+    <div class="section">
+
+        <h2>Welcome Administrator 👋</h2>
+
+        <p>
+            Use the menu on the left to manage Campus Cab.
+        </p>
+
+        <br>
+
+        <p>
+            You can approve drivers, manage students and staff,
+            handle complaints, view payments, check ratings and
+            compensate drivers.
+        </p>
+
+    </div>
+<div class="section">
+
+    <h2>🔔 Needs Attention</h2>
+
+    <div id="alertsPanel"></div>
+
+</div>
+</div>
+
+
+
+<!-- ================= DRIVERS ================= -->
+
+<!-- ================= DRIVERS LIST ================= -->
+
+<div id="driversList" class="page">
+
+    <div class="section">
+
+        <h2>🚕 Drivers</h2>
+
+        <input
+            type="text"
+            class="search"
+            placeholder="Search driver..."
+            onkeyup="searchTable(this, 'driversListTable')"
+        >
+
+        <table id="driversListTable">
+
+            <tr>
+                <th>Driver ID</th>
+                <th>Name</th>
+                <th>Vehicle</th>
+                <th>Status</th>
+            </tr>
+
+            <tr>
+                <td>DRV-0417</td>
+                <td>Nomvula Khumalo</td>
+                <td>Toyota Corolla Quest</td>
+                <td class="driverListStatus active">Active</td>
+            </tr>
+
+            <tr>
+                <td>DRV-0418</td>
+                <td>Sipho Mahlangu</td>
+                <td>Hyundai Grand i10</td>
+                <td class="driverListStatus active">Active</td>
+            </tr>
+
+            <tr>
+                <td>DRV-0419</td>
+                <td>Aisha Patel</td>
+                <td>Volkswagen Polo Vivo</td>
+                <td class="driverListStatus active">Active</td>
+            </tr>
+
+            <tr>
+                <td>DRV-0355</td>
+                <td>Bongani Dube</td>
+                <td>Toyota Etios</td>
+                <td class="driverListStatus suspended">Suspended</td>
+            </tr>
+
+            <tr>
+                <td>DRV-0361</td>
+                <td>Precious Mokoena</td>
+                <td>Nissan Almera</td>
+                <td class="driverListStatus active">Active</td>
+            </tr>
+
+        </table>
+
+    </div>
+
+</div>
+
+
+
+<!-- ================= DRIVER APPROVAL ================= -->
+
+<div id="drivers" class="page">
+
+    <div class="section">
+
+        <h2>🚗 Driver Approval</h2>
+
+        <input
+            type="text"
+            class="search"
+            placeholder="Search driver..."
+            onkeyup="searchTable(this, 'driverTable')"
+        >
+
+        <table id="driverTable">
+
+            <tr>
+                <th>Name</th>
+                <th>Vehicle</th>
+                <th>Registration</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+
+            <tr>
+                <td>Thabo Mokoena</td>
+                <td>Toyota Corolla</td>
+                <td>CA 123 456</td>
+                <td class="status">Pending</td>
+
+                <td>
+                    <button class="approve" onclick="approveDriver(this)">Approve</button>
+                    <button class="reject" onclick="rejectDriver(this)">Reject</button>
+                </td>
+            </tr>
+
+            <tr>
+                <td>Lerato Molefe</td>
+                <td>VW Polo</td>
+                <td>EC 456 789</td>
+                <td class="status">Pending</td>
+
+                <td>
+                    <button class="approve" onclick="approveDriver(this)">Approve</button>
+                    <button class="reject" onclick="rejectDriver(this)">Reject</button>
+                </td>
+            </tr>
+
+            <tr>
+                <td>Sam Nkosi</td>
+                <td>Hyundai i20</td>
+                <td>CA 777 888</td>
+                <td class="status">Pending</td>
+
+                <td>
+                    <button class="approve" onclick="approveDriver(this)">Approve</button>
+                    <button class="reject" onclick="rejectDriver(this)">Reject</button>
+                </td>
+            </tr>
+
+            <tr>
+                <td>Molefe James</td>
+                <td>VW Polo</td>
+                <td>EC 499 759</td>
+                <td class="status">Pending</td>
+
+                <td>
+                    <button class="approve" onclick="approveDriver(this)">Approve</button>
+                    <button class="reject" onclick="rejectDriver(this)">Reject</button>
+                </td>
+            </tr>
+
+            <tr>
+                <td>Simamkele Vashe</td>
+                <td>BMW</td>
+                <td>GP 485 258</td>
+                <td class="status">Pending</td>
+
+                <td>
+                    <button class="approve" onclick="approveDriver(this)">Approve</button>
+                    <button class="reject" onclick="rejectDriver(this)">Reject</button>
+                </td>
+            </tr>
+
+        </table>
+
+    </div>
+
+</div>
+
+
+
+<!-- ================= COMPLAINTS ================= -->
+
+<div id="complaints" class="page">
+
+    <div class="section">
+
+        <h2>📢 Complaints</h2>
+
+        <table id="complaintsTable">
+
+            <tr>
+                <th>Student</th>
+                <th>Complaint</th>
+                <th>Date</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+
+            <tr>
+
+                <td>Student 001</td>
+
+                <td>Driver arrived late</td>
+
+                <td>25 Aug 2026</td>
+
+                <td class="complaintStatus">
+                    Pending
+                </td>
+
+                <td>
+
+                    <button
+                        class="blue"
+                        onclick="resolveComplaint(this)">
+                        Resolve
+                    </button>
+
+                </td>
+
+            </tr>
+
+
+            <tr>
+
+                <td>Student 002</td>
+
+                <td>Wrong pickup location</td>
+
+                <td>24 Aug 2026</td>
+
+                <td class="complaintStatus">
+                    Investigating
+                </td>
+
+                <td>
+
+                    <button
+                        class="blue"
+                        onclick="resolveComplaint(this)">
+                        Resolve
+                    </button>
+
+                </td>
+
+            </tr>
+
+ <tr>
+
+                <td>Student 003</td>
+
+                <td>Too much money charged</td>
+
+                <td>25 Aug 2026</td>
+
+                <td class="complaintStatus">
+                    Pending
+                </td>
+
+                <td>
+
+                    <button
+                        class="blue"
+                        onclick="resolveComplaint(this)">
+                        Resolve
+                    </button>
+
+                </td>
+
+            </tr>
+
+ <tr>
+
+                <td>Student 004</td>
+
+                <td>Driver plays music too loud</td>
+
+                <td>25 Aug 2026</td>
+
+                <td class="complaintStatus">
+                    Pending
+                </td>
+
+                <td>
+
+                    <button
+                        class="blue"
+                        onclick="resolveComplaint(this)">
+                        Resolve
+                    </button>
+
+                </td>
+
+            </tr>
+
+ <tr>
+
+                <td>Student 005</td>
+
+                <td>Driver arrived late</td>
+
+                <td>25 Aug 2026</td>
+
+                <td class="complaintStatus">
+                    Pending
+                </td>
+
+                <td>
+
+                    <button
+                        class="blue"
+                        onclick="resolveComplaint(this)">
+                        Resolve
+                    </button>
+
+                </td>
+
+            </tr>
+
+
+        </table>
+
+    </div>
+
+</div>
+
+
+
+<!-- ================= STUDENTS ================= -->
+
+<div id="students" class="page">
+
+    <div class="section">
+
+        <h2>🎓 Students</h2>
+
+        <input
+            type="text"
+            class="search"
+            placeholder="Search student..."
+            onkeyup="searchTable(this, 'studentTable')"
+        >
+
+        <table id="studentTable">
+
+            <tr>
+                <th>Student Number</th>
+                <th>Name</th>
+                
+                <th>Status</th>
+            </tr>
+
+            <tr>
+                <td>202600146</td>
+                <td>Karabo Molefe</td>
+                
+                <td>Active</td>
+            </tr>
+
+            <tr>
+                <td>2026002</td>
+                <td>Thabiso Mokoena</td>
+               
+                <td>Active</td>
+            </tr>
+
+            <tr>
+                <td>202600318</td>
+                <td>Lesedi Ndlovu</td>
+                
+                <td>Active</td>
+
+            </tr>
+<tr>
+                <td>202644542</td>
+                <td>Sima Ndlovu</td>
+                
+                <td>Active</td>
+            </tr>
+
+<tr>
+                <td>202600388</td>
+                <td>Karabo Mosia</td>
+                
+                <td>Active</td>
+            </tr>
+
+<tr>
+                <td>202618843</td>
+                <td>Musa Rhadebe</td>
+                
+                <td>Active</td>
+            </tr>
+        </table>
+
+    </div>
+
+</div>
+
+
+
+<!-- ================= STAFF ================= -->
+
+<div id="staff" class="page">
+
+    <div class="section">
+
+        <h2>👨‍🏫 Staff</h2>
+
+        <input
+            type="text"
+            class="search"
+            placeholder="Search staff..."
+            onkeyup="searchTable(this, 'staffTable')"
+        >
+
+        <table id="staffTable">
+
+            <tr>
+                <th>Staff Number</th>
+                <th>Name</th>
+                
+                <th>Status</th>
+            </tr>
+
+            <tr>
+                <td>STA001</td>
+                <td>Dr. John Smith</td>
+                
+                <td>Active</td>
+            </tr>
+
+            <tr>
+                <td>STA002</td>
+                <td>Prof. Sarah Williams</td>
+                
+                <td>Active</td>
+            </tr>
+
+        </table>
+
+    </div>
+
+</div>
+
+
+
+
+
+
+
+<!-- ================= RATINGS ================= -->
+
+<div id="ratings" class="page">
+
+    <div class="section">
+
+        <h2>⭐ Driver Ratings</h2>
+
+        <table id="ratingsTable">
+
+            <tr>
+                <th>Driver</th>
+                <th>Rating</th>
+                <th>Number of Reviews</th>
+                <th>Number of trips</th>
+            </tr>
+
+            <!-- rows injected by JS -->
+
+        </table>
+
+    </div>
+
+</div>
+
+
+
+<!-- ================= Reimbursement ================= -->
+
+<div id="reimbursement" class="page">
+
+    <div class="section">
+
+        <h2> Driver complaints</h2>
+
+   <table id="reimbursementTable">
+
+    <tr>
+        <th>Driver</th>
+        <th>Reason</th>
+        <th>Category</th>
+        <th>Amount</th>
+        <th>Status</th>
+        <th>Action</th>
+    </tr>
+
+<tr>
+
+    <td>Thabo Mokoena</td>
+
+    <td>Cancelled passenger trip</td>
+    <td><span class="claimBadge covered">Covered — Cancellation Policy</span></td>
+    <td class="cancellationAmount">R50</td>
+
+                <td class="compensationStatus">
+                    Pending
+                </td>
+
+                <td>
+
+                    <button
+                        class="green"
+                        onclick="payDriver(this)">
+                      resolve
+                    </button>
+
+                </td>
+
+            </tr>
+
+<tr>
+
+    <td>Pamela Dutywa</td>
+
+    <td>Car faulty</td>
+    <td><span class="claimBadge notCovered">Not Covered — Driver's Vehicle</span></td>
+
+    <td>R150</td>
+
+                <td class="compensationStatus">
+                    Pending
+                </td>
+
+                <td>
+
+                    <button
+                        class="green"
+                        onclick="payDriver(this)">
+                        resolve
+                    </button>
+
+                </td>
+
+            </tr>
+
+          <tr>
+
+    <td>Lerato Molefe</td>
+
+    <td>Vehicle breakdown</td>
+    <td><span class="claimBadge notCovered">Not Covered — Driver's Vehicle</span></td>
+
+    <td>R100</td>
+
+                <td class="compensationStatus">
+                    Pending
+                </td>
+
+                <td>
+
+                    <button
+                        class="green"
+                        onclick="payDriver(this)">
+                        resolve
+                    </button>
+
+                </td>
+
+            </tr>
+
+ <tr>
+
+    <td>Thabo Mokoena</td>
+
+    <td>Left Side Mirror Cracked</td>
+    <td><span class="claimBadge discretionary">Discretionary — Needs Review</span></td>
+
+    <td>R80</td>
+
+                <td class="compensationStatus">
+                    Pending
+                </td>
+
+                <td>
+
+                    <button
+                        class="green"
+                        onclick="payDriver(this)">
+                        resolve
+                    </button>
+
+                </td>
+
+            </tr>
+
+ <tr>
+
+    <td>Mamela James</td>
+
+    <td>Cancelled passenger trip</td>
+    <td><span class="claimBadge covered">Covered — Cancellation Policy</span></td>
+
+   <td class="cancellationAmount">R50</td>
+
+                <td class="compensationStatus">
+                    Pending
+                </td>
+
+                <td>
+
+                    <button
+                        class="green"
+                        onclick="payDriver(this)">
+                        resolve
+                    </button>
+
+                </td>
+
+            </tr>
+
+ <tr>
+
+    <td>Marry Craig</td>
+
+    <td>Cancelled passenger trip</td>
+    <td><span class="claimBadge covered">Covered — Cancellation Policy</span></td>
+
+    <td class="cancellationAmount">R50</td>
+
+                <td class="compensationStatus">
+                    Pending
+                </td>
+
+                <td>
+
+                    <button
+                        class="green"
+                        onclick="payDriver(this)">
+                       resolve
+                    </button>
+
+                </td>
+
+            </tr>
+
+
+
+
+        </table>
+
+    </div>
+
+</div>
+
+
+
+<!-- ================= DRIVER COMPENSATION ================= -->
+
+<div id="driverCompensation" class="page">
+
+    <div class="section">
+
+        <h2>💵 Driver Compensation</h2>
+
+        <div id="compensationKpis" class="cards" style="margin-bottom:25px;"></div>
+
+        <div id="compensationList"></div>
+
+    </div>
+
+</div>
+
+
+
+<!-- ================= SETTINGS ================= -->
+
+<div id="settings" class="page">
+
+    <div class="section">
+
+        <h2>⚙️ System Settings</h2>
+
+        <div class="compCalcBox" style="max-width:400px;">
+
+            <div class="compCalcTitle">Commission Rate</div>
+
+            <p style="color:#d1d5db; font-size:13px; margin-bottom:12px;">
+                This percentage is applied to every driver's total fare
+                when calculating their commission payment.
+            </p>
+
+            <div class="settingsRow">
+                <input type="number" id="commissionRateInput" min="0" max="100" step="1" class="settingsInput">
+                <button class="approve" onclick="saveCommissionRate()">Save Changes</button>
+            </div>
+
+            <p id="settingsSavedMsg" style="color:#4ade80; font-size:13px; margin-top:10px; display:none;">
+                ✓ Commission rate updated.
+            </p>
+
+        </div>
+
+        <div class="compCalcBox" style="max-width:400px; margin-top:20px;">
+
+            <div class="compCalcTitle">Fare Settings</div>
+
+            <p style="color:#d1d5db; font-size:13px; margin-bottom:12px;">
+                These values determine how a ride's total fare is calculated
+                before commission is applied.
+            </p>
+
+            <label style="font-size:13px; color:#d1d5db; display:block; margin-bottom:6px;">Base Fare (R)</label>
+            <div class="settingsRow">
+                <input type="number" id="baseFareInput" class="settingsInput" min="0" step="1">
+            </div>
+
+            <label style="font-size:13px; color:#d1d5db; display:block; margin-bottom:6px;">Price per KM (R)</label>
+            <div class="settingsRow">
+                <input type="number" id="pricePerKmInput" class="settingsInput" min="0" step="0.5">
+                <button class="approve" onclick="saveFareSettings()">Save Changes</button>
+            </div>
+
+            <p id="fareSettingsSavedMsg" style="color:#4ade80; font-size:13px; margin-top:10px; display:none;">
+                ✓ Fare settings updated.
+            </p>
+
+            <div class="compCalcBox" style="margin-top:16px; background:rgba(255,255,255,0.03);">
+                <div class="compCalcTitle">Example: 8km trip</div>
+                <div id="farePreview" class="compCalcLine"></div>
+            </div>
+
+        </div>
+
+        <div class="compCalcBox" style="max-width:400px; margin-top:20px;">
+
+            <div class="compCalcTitle">Cancellation Fee</div>
+
+            <p style="color:#d1d5db; font-size:13px; margin-bottom:12px;">
+                This amount is paid to a driver when a passenger cancels
+                a trip after pickup confirmation.
+            </p>
+
+            <div class="settingsRow">
+                <input type="number" id="cancellationFeeInput" class="settingsInput" min="0" step="1">
+                <button class="approve" onclick="saveCancellationFee()">Save Changes</button>
+            </div>
+
+                 <p id="cancellationFeeSavedMsg" style="color:#4ade80; font-size:13px; margin-top:10px; display:none;">
+                ✓ Cancellation fee updated.
+            </p>
+
+        </div>
+
+        <div class="compCalcBox" style="max-width:400px; margin-top:20px;">
+
+            <div class="compCalcTitle">Low Rating Threshold</div>
+
+            <p style="color:#d1d5db; font-size:13px; margin-bottom:12px;">
+                Drivers with an average rating below this value will be
+                flagged for review on the Driver Ratings page.
+            </p>
+
+            <div class="settingsRow">
+                <input type="number" id="lowRatingInput" class="settingsInput" min="0" max="5" step="0.1">
+                <button class="approve" onclick="saveLowRatingThreshold()">Save Changes</button>
+            </div>
+
+            <p id="lowRatingSavedMsg" style="color:#4ade80; font-size:13px; margin-top:10px; display:none;">
+                ✓ Threshold updated.
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
+
+</div>
+
+
+<script src="script.js"></script>
 </body>
 </html>
