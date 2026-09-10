@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 22, 2026 at 01:42 AM
+-- Generation Time: Sep 10, 2026 at 08:52 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -65,51 +65,43 @@ CREATE TABLE `driver` (
   `driverAccount_Status` enum('Active','Inactive') DEFAULT 'Active',
   `licence_number` varchar(30) NOT NULL,
   `availability_status` enum('Available','Unavailable') DEFAULT 'Unavailable',
-  `password` varchar(255) NOT NULL DEFAULT ''
+  `password` varchar(255) NOT NULL DEFAULT '',
+  `DriverIDNumber` varchar(13) DEFAULT NULL,
+  `DriverGender` varchar(10) DEFAULT NULL,
+  `DriverAddress` text DEFAULT NULL,
+  `DriverPhoto` varchar(255) DEFAULT NULL,
+  `VehicleReg` varchar(20) DEFAULT NULL,
+  `VehicleModel` varchar(50) DEFAULT NULL,
+  `VehiclePhoto` varchar(255) DEFAULT NULL,
+  `email_verified` tinyint(1) DEFAULT 0,
+  `verification_token` varchar(255) DEFAULT NULL,
+  `token_expiry` datetime DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `vehicle_type` varchar(20) DEFAULT 'Car',
+  `vehicle_color` varchar(30) DEFAULT NULL,
+  `vehicle_capacity` int(11) DEFAULT 4,
+  `vehicle_make` varchar(50) DEFAULT NULL,
+  `phone_verified` tinyint(1) DEFAULT 0,
+  `verification_otp` varchar(6) DEFAULT NULL,
+  `otp_expiry` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `driver`
 --
 
-INSERT INTO `driver` (`DriverID`, `DriverFname`, `DriverLname`, `DriverEmail`, `DriverPhoneNo`, `driverAccount_Status`, `licence_number`, `availability_status`, `password`) VALUES
-(1, 'Anele', 'Buxoki', 'buxokianele@gmail.com', '0652328710', 'Active', 'EC 324 JP', 'Available', '$2y$10$70Z.uxXt8ZD6/9DMj4TlQeMPLO9nluPQcx42LvxHrVdPOnBzkA.jC'),
-(2, 'Driver2', 'Surname2', 'driver2@gmail.com', '600000002', 'Active', 'LIC0002', 'Available', '$2y$10$70Z.uxXt8ZD6/9DMj4TlQeMPLO9nluPQcx42LvxHrVdPOnBzkA.jC'),
-(3, 'Driver3', 'Surname3', 'driver3@gmail.com', '600000003', 'Active', 'LIC0003', 'Available', '$2y$10$70Z.uxXt8ZD6/9DMj4TlQeMPLO9nluPQcx42LvxHrVdPOnBzkA.jC'),
-(4, 'Driver4', 'Surname4', 'driver4@gmail.com', '600000004', 'Active', 'LIC0004', 'Available', '$2y$10$70Z.uxXt8ZD6/9DMj4TlQeMPLO9nluPQcx42LvxHrVdPOnBzkA.jC'),
-(5, 'Driver5', 'Surname5', 'driver5@gmail.com', '600000005', 'Active', 'LIC0005', 'Available', '$2y$10$70Z.uxXt8ZD6/9DMj4TlQeMPLO9nluPQcx42LvxHrVdPOnBzkA.jC'),
-(6, 'Driver6', 'Surname6', 'driver6@gmail.com', '600000006', 'Active', 'LIC0006', 'Available', '$2y$10$70Z.uxXt8ZD6/9DMj4TlQeMPLO9nluPQcx42LvxHrVdPOnBzkA.jC'),
-(7, 'Driver7', 'Surname7', 'driver7@gmail.com', '600000007', 'Active', 'LIC0007', 'Available', '$2y$10$70Z.uxXt8ZD6/9DMj4TlQeMPLO9nluPQcx42LvxHrVdPOnBzkA.jC'),
-(8, 'Driver8', 'Surname8', 'driver8@gmail.com', '600000008', 'Active', 'LIC0008', 'Available', '$2y$10$70Z.uxXt8ZD6/9DMj4TlQeMPLO9nluPQcx42LvxHrVdPOnBzkA.jC'),
-(9, 'Driver9', 'Surname9', 'driver9@gmail.com', '600000009', 'Active', 'LIC0009', 'Available', '$2y$10$70Z.uxXt8ZD6/9DMj4TlQeMPLO9nluPQcx42LvxHrVdPOnBzkA.jC'),
-(10, 'Driver10', 'Surname10', 'driver10@gmail.com', '600000010', 'Active', 'LIC0010', 'Available', '$2y$10$70Z.uxXt8ZD6/9DMj4TlQeMPLO9nluPQcx42LvxHrVdPOnBzkA.jC');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `grocery_orders`
---
-
-CREATE TABLE `grocery_orders` (
-  `id` int(11) NOT NULL,
-  `student_id` int(11) NOT NULL,
-  `driver_id` int(11) DEFAULT NULL,
-  `store_name` varchar(100) NOT NULL,
-  `items_list` text NOT NULL,
-  `max_budget` decimal(10,2) NOT NULL,
-  `receipt_total` decimal(10,2) DEFAULT NULL,
-  `receipt_image` varchar(255) DEFAULT NULL,
-  `status` enum('PENDING','ACCEPTED','BUYING','DELIVERING','COMPLETED') DEFAULT 'PENDING',
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `grocery_orders`
---
-
-INSERT INTO `grocery_orders` (`id`, `student_id`, `driver_id`, `store_name`, `items_list`, `max_budget`, `receipt_total`, `receipt_image`, `status`, `created_at`) VALUES
-(1, 3, 9, 'Spar', 'Bonnita milk 2l\r\nplain yogurt\r\nonion 2kg\r\ntomato 1kg\r\ncheese 500g', 250.00, NULL, NULL, 'COMPLETED', '2026-08-21 20:55:50'),
-(2, 3, 9, 'Champs', 'combo 3X2', 100.00, NULL, 'uploads/receipts/receipt_2_1787346838.png', 'COMPLETED', '2026-08-21 21:12:50');
+INSERT INTO `driver` (`DriverID`, `DriverFname`, `DriverLname`, `DriverEmail`, `DriverPhoneNo`, `driverAccount_Status`, `licence_number`, `availability_status`, `password`, `DriverIDNumber`, `DriverGender`, `DriverAddress`, `DriverPhoto`, `VehicleReg`, `VehicleModel`, `VehiclePhoto`, `email_verified`, `verification_token`, `token_expiry`, `created_at`, `vehicle_type`, `vehicle_color`, `vehicle_capacity`, `vehicle_make`, `phone_verified`, `verification_otp`, `otp_expiry`) VALUES
+(1, 'Anele', 'Buxoki', 'buxokianele@gmail.com', '0652328710', 'Active', 'EC 324 JP', 'Available', '$2y$10$70Z.uxXt8ZD6/9DMj4TlQeMPLO9nluPQcx42LvxHrVdPOnBzkA.jC', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, '2026-08-27 20:20:16', 'Car', NULL, 4, NULL, 0, NULL, NULL),
+(2, 'Driver2', 'Surname2', 'driver2@gmail.com', '600000002', 'Active', 'LIC0002', 'Available', '$2y$10$70Z.uxXt8ZD6/9DMj4TlQeMPLO9nluPQcx42LvxHrVdPOnBzkA.jC', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, '2026-08-27 20:20:16', 'Car', NULL, 4, NULL, 0, NULL, NULL),
+(3, 'Driver3', 'Surname3', 'driver3@gmail.com', '600000003', 'Active', 'LIC0003', 'Available', '$2y$10$70Z.uxXt8ZD6/9DMj4TlQeMPLO9nluPQcx42LvxHrVdPOnBzkA.jC', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, '2026-08-27 20:20:16', 'Car', NULL, 4, NULL, 0, NULL, NULL),
+(4, 'Driver4', 'Surname4', 'driver4@gmail.com', '600000004', 'Active', 'LIC0004', 'Available', '$2y$10$70Z.uxXt8ZD6/9DMj4TlQeMPLO9nluPQcx42LvxHrVdPOnBzkA.jC', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, '2026-08-27 20:20:16', 'Car', NULL, 4, NULL, 0, NULL, NULL),
+(5, 'Driver5', 'Surname5', 'driver5@gmail.com', '600000005', 'Active', 'LIC0005', 'Available', '$2y$10$70Z.uxXt8ZD6/9DMj4TlQeMPLO9nluPQcx42LvxHrVdPOnBzkA.jC', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, '2026-08-27 20:20:16', 'Car', NULL, 4, NULL, 0, NULL, NULL),
+(6, 'Driver6', 'Surname6', 'driver6@gmail.com', '600000006', 'Active', 'LIC0006', 'Available', '$2y$10$70Z.uxXt8ZD6/9DMj4TlQeMPLO9nluPQcx42LvxHrVdPOnBzkA.jC', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, '2026-08-27 20:20:16', 'Car', NULL, 4, NULL, 0, NULL, NULL),
+(7, 'Driver7', 'Surname7', 'driver7@gmail.com', '600000007', 'Active', 'LIC0007', 'Available', '$2y$10$70Z.uxXt8ZD6/9DMj4TlQeMPLO9nluPQcx42LvxHrVdPOnBzkA.jC', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, '2026-08-27 20:20:16', 'Car', NULL, 4, NULL, 0, NULL, NULL),
+(8, 'Driver8', 'Surname8', 'driver8@gmail.com', '600000008', 'Active', 'LIC0008', 'Available', '$2y$10$70Z.uxXt8ZD6/9DMj4TlQeMPLO9nluPQcx42LvxHrVdPOnBzkA.jC', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, '2026-08-27 20:20:16', 'Car', NULL, 4, NULL, 0, NULL, NULL),
+(9, 'Driver9', 'Surname9', 'driver9@gmail.com', '600000009', 'Active', 'LIC0009', 'Available', '$2y$10$70Z.uxXt8ZD6/9DMj4TlQeMPLO9nluPQcx42LvxHrVdPOnBzkA.jC', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, '2026-08-27 20:20:16', 'Car', NULL, 4, NULL, 0, NULL, NULL),
+(10, 'Driver10', 'Surname10', 'driver10@gmail.com', '600000010', 'Active', 'LIC0010', 'Available', '$2y$10$70Z.uxXt8ZD6/9DMj4TlQeMPLO9nluPQcx42LvxHrVdPOnBzkA.jC', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, '2026-08-27 20:20:16', 'Car', NULL, 4, NULL, 0, NULL, NULL),
+(14, 'Nosipho', 'makonjwa', 'makhonjwabanele01@gmail.com', '0652428564', 'Active', 'EC-1237', 'Available', '$2y$10$qNbvhiBRfkj39yEbKmUbue.t2k3jm6D2c4oqhgCQ.3HPnrwyWRPPa', '7888364865648', 'Female', 'Mkhumeni A/A, Flagstaff, Flagstaff, Eastern Cape 4810', 'uploads/drivers/driver_1789042758_6587.png', 'EC-1237', 'Corolla', 'uploads/drivers/vehicle_1789042758_7499.png', 0, 'fe2f9223e05fa53d0c81cf1b6110e040dc8c34e662436027f0ece58295a9e2db', '2026-09-11 14:19:18', '2026-09-10 12:19:18', 'Car', 'White', 4, 'Toyota', 1, NULL, '2026-09-10 14:29:18');
 
 -- --------------------------------------------------------
 
@@ -247,6 +239,37 @@ INSERT INTO `ride` (`rideID`, `studentID`, `DriverID`, `pickup_address`, `pickup
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `staff`
+--
+
+CREATE TABLE `staff` (
+  `staff_id` int(11) NOT NULL,
+  `staff_number` varchar(9) NOT NULL,
+  `staff_name` varchar(50) NOT NULL,
+  `surname` varchar(50) NOT NULL,
+  `staff_email` varchar(100) NOT NULL,
+  `cell_number` varchar(10) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `email_verified` tinyint(1) DEFAULT 0,
+  `verification_token` varchar(255) DEFAULT NULL,
+  `token_expiry` datetime DEFAULT NULL,
+  `reset_token` varchar(255) DEFAULT NULL,
+  `reset_expiry` datetime DEFAULT NULL,
+  `staffAccount_status` enum('Active','Inactive') DEFAULT 'Active'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `staff`
+--
+
+INSERT INTO `staff` (`staff_id`, `staff_number`, `staff_name`, `surname`, `staff_email`, `cell_number`, `password`, `created_at`, `email_verified`, `verification_token`, `token_expiry`, `reset_token`, `reset_expiry`, `staffAccount_status`) VALUES
+(1, '223090878', 'siphesihle', 'jiba', '223090878@ufh.ac.za', '0782567808', '$2y$10$uX5WfVMAtVVDrS6sEyg1hurPWzbP/mw.CSHk./qD5vluLs9ceE.x2', '2026-09-09 18:25:00', 1, NULL, NULL, NULL, NULL, 'Active'),
+(2, '123456789', 'Anele', 'Lugayeni', 'alugayeni@ufh.ac.za', '0607512703', '$2y$10$nVH4.hhSJkL7XV2mgbHtb.oDPv9J8Kwu9U4.NRdROq7XMGIXHCN/i', '2026-09-09 19:00:24', 0, NULL, NULL, NULL, NULL, 'Active');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `student`
 --
 
@@ -258,47 +281,25 @@ CREATE TABLE `student` (
   `studentEmail` varchar(50) NOT NULL,
   `studentPhoneNo` varchar(15) NOT NULL,
   `studentAccount_status` enum('Active','Inactive') DEFAULT 'Active',
-  `studentPwd` varchar(255) DEFAULT NULL
+  `studentPwd` varchar(255) DEFAULT NULL,
+  `email_verified` tinyint(1) DEFAULT 0,
+  `verification_token` varchar(255) DEFAULT NULL,
+  `token_expiry` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `student`
 --
 
-INSERT INTO `student` (`studentID`, `studentNumber`, `studentFname`, `studentLname`, `studentEmail`, `studentPhoneNo`, `studentAccount_status`, `studentPwd`) VALUES
-(1, NULL, 'Bongani', 'Mthembu', 'bonganimthembu@gmail.com', '632423457', 'Active', '$2y$10$70Z.uxXt8ZD6/9DMj4TlQeMPLO9nluPQcx42LvxHrVdPOnBzkA.jC'),
-(2, NULL, 'Noluthando', 'Ndlovu', 'noluthandondlovu@gmail.com', '632076543', 'Active', '$2y$10$70Z.uxXt8ZD6/9DMj4TlQeMPLO9nluPQcx42LvxHrVdPOnBzkA.jC'),
-(3, NULL, 'Sipho', 'Xaba', 'siphoxaba@gmail.com', '714567890', 'Active', '$2y$10$70Z.uxXt8ZD6/9DMj4TlQeMPLO9nluPQcx42LvxHrVdPOnBzkA.jC'),
-(4, NULL, 'Zoleka', 'Dlamini', 'zolekadlamini@gmail.com', '723456789', 'Inactive', '$2y$10$70Z.uxXt8ZD6/9DMj4TlQeMPLO9nluPQcx42LvxHrVdPOnBzkA.jC'),
-(5, NULL, 'Lwazi', 'Mokoena', 'lwazimokoena@gmail.com', '612345678', 'Active', '$2y$10$70Z.uxXt8ZD6/9DMj4TlQeMPLO9nluPQcx42LvxHrVdPOnBzkA.jC'),
-(6, '225074411', 'Banele', 'Makhonjwa', '225074411@ufh.ac.za', '0652428564', 'Active', '$2y$10$Zp2PiGBZSm9CYuljEpbpX.jBryv3XVDAf/b3RRS5gaepgbJFRVEH2');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `vehicle`
---
-
-CREATE TABLE `vehicle` (
-  `vehicle_id` int(11) NOT NULL,
-  `DriverID` int(11) NOT NULL,
-  `registration_no` varchar(20) NOT NULL,
-  `make` varchar(50) DEFAULT NULL,
-  `model` varchar(50) DEFAULT NULL,
-  `colour` varchar(30) DEFAULT NULL,
-  `capacity` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `vehicle`
---
-
-INSERT INTO `vehicle` (`vehicle_id`, `DriverID`, `registration_no`, `make`, `model`, `colour`, `capacity`) VALUES
-(1, 6, 'CA 123-456', 'Toyota', 'Quantum', 'White', 15),
-(2, 7, 'EC 987-654', 'Volkswagen', 'Polo', 'Silver', 4),
-(3, 8, 'GP 456-789', 'Toyota', 'Corolla', 'White', 4),
-(4, 9, 'CA 789-123', 'Nissan', 'NV350', 'White', 14),
-(5, 10, 'EC 321-654', 'Ford', 'Ranger', 'Black', 4);
+INSERT INTO `student` (`studentID`, `studentNumber`, `studentFname`, `studentLname`, `studentEmail`, `studentPhoneNo`, `studentAccount_status`, `studentPwd`, `email_verified`, `verification_token`, `token_expiry`) VALUES
+(1, NULL, 'Bongani', 'Mthembu', 'bonganimthembu@gmail.com', '632423457', 'Active', '$2y$10$70Z.uxXt8ZD6/9DMj4TlQeMPLO9nluPQcx42LvxHrVdPOnBzkA.jC', 1, NULL, NULL),
+(2, NULL, 'Noluthando', 'Ndlovu', 'noluthandondlovu@gmail.com', '632076543', 'Active', '$2y$10$70Z.uxXt8ZD6/9DMj4TlQeMPLO9nluPQcx42LvxHrVdPOnBzkA.jC', 0, NULL, NULL),
+(3, NULL, 'Sipho', 'Xaba', 'siphoxaba@gmail.com', '714567890', 'Active', '$2y$10$70Z.uxXt8ZD6/9DMj4TlQeMPLO9nluPQcx42LvxHrVdPOnBzkA.jC', 0, NULL, NULL),
+(4, NULL, 'Zoleka', 'Dlamini', 'zolekadlamini@gmail.com', '723456789', 'Inactive', '$2y$10$70Z.uxXt8ZD6/9DMj4TlQeMPLO9nluPQcx42LvxHrVdPOnBzkA.jC', 0, NULL, NULL),
+(5, NULL, 'Lwazi', 'Mokoena', 'lwazimokoena@gmail.com', '612345678', 'Active', '$2y$10$70Z.uxXt8ZD6/9DMj4TlQeMPLO9nluPQcx42LvxHrVdPOnBzkA.jC', 0, NULL, NULL),
+(10, '225074411', 'Banele', 'Makhonjwa', '225074411@ufh.ac.za', '0652428564', 'Active', '$2y$10$AhEB2chIYVRIHSYRxOYHru68npDvGAJdE82tWlQAryFzSOV8ib1Sq', 1, '99154569ce7cdfb562390ea6013f4ae9f0d348d383e0781d0cef6b3591757fb4', '2026-08-28 13:58:03'),
+(11, '225789054', 'Nick', 'James', '225789054@ufh.ac.za', '0786345623', 'Active', '$2y$10$xdTSFVGBXPs129GsQqjo9.RNnqDucQig6nCuDMTxiyn/M6RZIj/G2', 1, 'bb62309605d0933ef9f6d9bfb34a6eac2e598eb11c25be994bf08ae2df7b8be0', '2026-09-02 20:29:00'),
+(12, '123456789', 'Lwandiso', 'Gwabavu', 'Mlwandos@gmail.com', '0607512703', 'Active', '$2y$10$rR8GxhveiEBiPLZjvi4XcuD1ua7p5I5afQVI026ygIVjN3V3FKb9q', 1, 'ac8eed9445631ca3570bdec0f4e354e5be747b1ff17ed250ab9b65f90d6b22a6', '2026-09-10 20:53:22');
 
 --
 -- Indexes for dumped tables
@@ -316,13 +317,8 @@ ALTER TABLE `campus_location`
 ALTER TABLE `driver`
   ADD PRIMARY KEY (`DriverID`),
   ADD UNIQUE KEY `DriverEmail` (`DriverEmail`),
-  ADD UNIQUE KEY `licence_number` (`licence_number`);
-
---
--- Indexes for table `grocery_orders`
---
-ALTER TABLE `grocery_orders`
-  ADD PRIMARY KEY (`id`);
+  ADD UNIQUE KEY `licence_number` (`licence_number`),
+  ADD UNIQUE KEY `DriverIDNumber` (`DriverIDNumber`);
 
 --
 -- Indexes for table `location`
@@ -364,20 +360,21 @@ ALTER TABLE `ride`
   ADD KEY `DriverID` (`DriverID`);
 
 --
+-- Indexes for table `staff`
+--
+ALTER TABLE `staff`
+  ADD PRIMARY KEY (`staff_id`),
+  ADD UNIQUE KEY `staff_number` (`staff_number`),
+  ADD UNIQUE KEY `staff_email` (`staff_email`),
+  ADD UNIQUE KEY `cell_number` (`cell_number`);
+
+--
 -- Indexes for table `student`
 --
 ALTER TABLE `student`
   ADD PRIMARY KEY (`studentID`),
   ADD UNIQUE KEY `studentEmail` (`studentEmail`),
   ADD UNIQUE KEY `studentNumber` (`studentNumber`);
-
---
--- Indexes for table `vehicle`
---
-ALTER TABLE `vehicle`
-  ADD PRIMARY KEY (`vehicle_id`),
-  ADD UNIQUE KEY `registration_no` (`registration_no`),
-  ADD KEY `DriverID` (`DriverID`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -393,13 +390,7 @@ ALTER TABLE `campus_location`
 -- AUTO_INCREMENT for table `driver`
 --
 ALTER TABLE `driver`
-  MODIFY `DriverID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
-
---
--- AUTO_INCREMENT for table `grocery_orders`
---
-ALTER TABLE `grocery_orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `DriverID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `location`
@@ -432,16 +423,16 @@ ALTER TABLE `ride`
   MODIFY `rideID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
+-- AUTO_INCREMENT for table `staff`
+--
+ALTER TABLE `staff`
+  MODIFY `staff_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT for table `student`
 --
 ALTER TABLE `student`
-  MODIFY `studentID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
-
---
--- AUTO_INCREMENT for table `vehicle`
---
-ALTER TABLE `vehicle`
-  MODIFY `vehicle_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `studentID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- Constraints for dumped tables
@@ -480,12 +471,6 @@ ALTER TABLE `rating`
 ALTER TABLE `ride`
   ADD CONSTRAINT `ride_ibfk_1` FOREIGN KEY (`studentID`) REFERENCES `student` (`studentID`),
   ADD CONSTRAINT `ride_ibfk_2` FOREIGN KEY (`DriverID`) REFERENCES `driver` (`DriverID`);
-
---
--- Constraints for table `vehicle`
---
-ALTER TABLE `vehicle`
-  ADD CONSTRAINT `vehicle_ibfk_1` FOREIGN KEY (`DriverID`) REFERENCES `driver` (`DriverID`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
