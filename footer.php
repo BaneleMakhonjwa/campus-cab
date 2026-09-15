@@ -1,6 +1,6 @@
 </main>
 <footer class="site-footer">
-    <p>Campus Cab &amp; Delivery — CSC224 database systems project</p>
+    <p>Campus Cab &amp; Delivery — Always On Time.</p>
 </footer>
 </body>
 </html>
