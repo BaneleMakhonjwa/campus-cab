@@ -4,18 +4,15 @@
 const menuToggle = document.getElementById("menuToggle");
 const navMenu = document.getElementById("navMenu");
 
-
 menuToggle.addEventListener("click", function () {
 
     navMenu.classList.toggle("active");
 
 });
 
-
 /* Close mobile menu when a link is clicked */
 
 const navLinks = document.querySelectorAll("#navMenu a");
-
 
 navLinks.forEach(function (link) {
 
@@ -52,7 +49,6 @@ function showRequestMessage(type) {
 
     }
 
-
     if (type === "parcel") {
 
         modalIcon.textContent = "📦";
@@ -64,11 +60,9 @@ function showRequestMessage(type) {
 
     }
 
-
     modal.classList.add("active");
 
 }
-
 
 /* ================= CLOSE MODAL ================= */
 
@@ -79,7 +73,6 @@ function closeModal() {
     modal.classList.remove("active");
 
 }
-
 
 /* Close modal when clicking outside */
 
@@ -95,7 +88,6 @@ window.addEventListener("click", function (event) {
 
 });
 
-
 /* ================= LOGIN ================= */
 
 function goToLogin() {
@@ -105,8 +97,6 @@ function goToLogin() {
     );
 
 }
-
-
 /* ================= TRACK DRIVER ================= */
 
 function trackDriver() {
@@ -116,8 +106,6 @@ function trackDriver() {
     );
 
 }
-
-
 /* ================= SUPPORT ================= */
 
 function contactSupport() {
@@ -125,5 +113,4 @@ function contactSupport() {
     alert(
         "CampusCab Support\n\nPlease contact the university transport office for assistance with your request."
     );
-
 }
