@@ -62,7 +62,6 @@ a {
     letter-spacing: -1px;
 }
 
-
 /* ONLY "Cab" becomes orange */
 
 .logo span {
@@ -90,13 +89,11 @@ a {
     color: #f58220;
 }
 
-
 .login-btn {
     border: 1px solid rgba(255, 255, 255, 0.7);
     padding: 9px 20px;
     border-radius: 6px;
 }
-
 
 .login-btn:hover {
     background: #f58220;
@@ -119,7 +116,6 @@ a {
     color: white !important;
     border-color: #f58220;
 }
-
 
 /* Mobile menu button */
 
@@ -187,7 +183,6 @@ a {
     margin-bottom: 15px;
 }
 
-
 .hero h1 {
     font-size: clamp(2.8rem, 6vw, 5rem);
     line-height: 1.05;
@@ -197,11 +192,9 @@ a {
     font-weight: 800;
 }
 
-
 .hero h1 span {
     color: #f58220;
 }
-
 
 .hero-description {
     max-width: 650px;
@@ -211,7 +204,6 @@ a {
     font-size: 1.2rem;
     color: #f5f5f5;
 }
-
 
 .hero-buttons {
     display: flex;
@@ -296,7 +288,6 @@ a {
     transition: 0.3s;
 }
 
-
 .track-link:hover {
     color: #f58220;
     border-color: #f58220;
@@ -311,7 +302,6 @@ a {
     text-align: center;
 }
 
-
 .section-label {
     color: #f58220;
 
@@ -323,7 +313,6 @@ a {
 
     margin-bottom: 10px;
 }
-
 
 .section-heading h2,
 .request-content h2,
@@ -347,14 +336,12 @@ a {
     font-size: 1.05rem;
 }
 
-
 /* SERVICES */
 
 .services-section {
     padding: 90px 5%;
     background: #f7f9fc;
 }
-
 
 .service-grid {
     max-width: 1200px;
@@ -367,7 +354,6 @@ a {
 
     gap: 22px;
 }
-
 
 .service-card {
     background: white;
@@ -383,13 +369,11 @@ a {
     transition: 0.3s;
 }
 
-
 .service-card:hover {
     transform: translateY(-6px);
 
     box-shadow: 0 12px 30px rgba(0, 0, 0, 0.10);
 }
-
 
 .service-icon {
     width: 55px;
@@ -408,7 +392,6 @@ a {
     margin-bottom: 20px;
 }
 
-
 .service-card h3 {
     color: #06457f;
 
@@ -416,7 +399,6 @@ a {
 
     margin-bottom: 10px;
 }
-
 
 .service-card p {
     color: #667085;
@@ -494,7 +476,6 @@ a {
     font-size: 0.95rem;
 }
 
-
 /* ================= REQUEST SECTION ================= */
 
 .request-section {
@@ -502,7 +483,6 @@ a {
 
     background: #06457f;
 }
-
 
 .request-content {
     max-width: 1100px;
@@ -597,7 +577,6 @@ a {
 
     gap: 25px;
 }
-
 
 .tracking-icon {
     width: 75px;
@@ -880,7 +859,6 @@ footer {
 
     margin-bottom: 25px;
 }
-
 
 /* ================= MOBILE ================= */
 

@@ -10,7 +10,6 @@
 </head>
 
 <body>
-
     <!-- ================= NAVIGATION ================= -->
     <header class="navbar">
 
@@ -28,9 +27,7 @@
             <a href="#how-it-works">How It Works</a>
             <a href="#track">Track</a>
             <a href="#help">Help</a>
-             <a href="registration.html" class="register-btn">
-        Registration
-    </a>
+              <button class="register-btn" onclick="openRegisterModal()">Register</button>
             <a href="#login" class="login-btn">Login</a>
         </nav>
 
@@ -44,6 +41,8 @@
             <div class="hero-overlay"></div>
 
             <div class="hero-content">
+
+  
 
                 <p class="welcome-text">
                     UNIVERSITY OF FORT HARE
@@ -129,8 +128,7 @@
                     <h3>Parcel Collection</h3>
 
                     <p>
-                        Have a parcel collected, transported or delivered
-                        on your behalf without the hassle
+                        Have a parcel collected on your behalf without the hassle
                     </p>
 
                     <a href="#parcel">
@@ -170,7 +168,7 @@
 
                     <p>
                         Keep track of your previous transportation
-                        and parcel requests in one place.
+                        and parcel collection requests in one place.
                     </p>
 
                     <a href="#login">
@@ -248,7 +246,6 @@
 
                 </div>
 
-
                 <div class="step">
 
                     <div class="step-number">
@@ -267,7 +264,6 @@
             </div>
 
         </section>
-
 
         <!-- ================= REQUEST SECTION ================= -->
         <section class="request-section" id="request">
@@ -298,7 +294,6 @@
             </div>
 
         </section>
-
 
         <!-- ================= PARCEL SECTION ================= -->
         <section class="parcel-section" id="parcel">
@@ -404,7 +399,6 @@
                     </p>
 
                 </div>
-
 
                 <div class="community-card">
 
@@ -577,6 +571,23 @@
     </div>
 
     <script src="script.js"></script>
+                  <h2>Select Registration Type</h2>
+
+<div id="registerModal" class="modal">
+  <div class="modal-content">
+    <button class="close-modal" onclick="closeModal()">&times;</button>
+    <div class="modal-icon">📝</div>
+    <h2>Select Registration Type</h2>
+    <p>Please choose how you want to register:</p>
+    
+    <select id="registerType" class="register-btn" style="color:#06457f; font-weight:600;">
+      <option value="student">Student</option>
+      <option value="driver">Driver</option>
+      <option value="staff">Staff Member</option>
+    </select>
+    <button class="btn btn-orange" onclick="handleRegister()">Continue</button>
+  </div>
+</div>
 
 </body>
 </html>

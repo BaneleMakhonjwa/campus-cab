@@ -27,6 +27,23 @@ navLinks.forEach(function (link) {
 
 /* ================= REQUEST MODAL ================= */
 
+
+function openRegisterModal() {
+    const modal = document.getElementById("registerModal");
+    modal.classList.add("active");
+}
+
+function handleRegister() {
+    const role = document.getElementById("registerType").value;
+    if (role === "student") {
+        window.location.href = "student-register.html";
+    } else if (role === "driver") {
+        window.location.href = "driver-register.html";
+    } else if (role === "staff") {
+        window.location.href = "staff-register.html";
+    }
+}
+
 function showRequestMessage(type) {
 
     const modal = document.getElementById("requestModal");
@@ -63,7 +80,6 @@ function showRequestMessage(type) {
     modal.classList.add("active");
 
 }
-
 /* ================= CLOSE MODAL ================= */
 
 function closeModal() {
