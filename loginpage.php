@@ -23,8 +23,8 @@ if (!in_array($role, $allowed_roles, true)) {
 
 
 /* =========================
-   LOGIN
-========================= */
+   LOGIN PROCESS
+   ========================= */
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
@@ -34,10 +34,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     } else {
 
-
         /* =========================
            STUDENT LOGIN
-        ========================= */
+           ========================= */
 
         if ($role === "student") {
 
@@ -76,8 +75,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                         $_SESSION["user_id"] = $user["studentID"];
                         $_SESSION["email"] = $user["studentEmail"];
                         $_SESSION["name"] =
-                            $user["studentFname"] . " " .
-                            $user["studentLname"];
+                            $user["studentFname"] . " " . $user["studentLname"];
 
                         header("Location: request.php");
                         exit;
@@ -93,7 +91,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
         /* =========================
            DRIVER LOGIN
-        ========================= */
+           ========================= */
 
         elseif ($role === "driver") {
 
@@ -132,8 +130,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                         $_SESSION["user_id"] = $user["DriverID"];
                         $_SESSION["email"] = $user["DriverEmail"];
                         $_SESSION["name"] =
-                            $user["DriverFname"] . " " .
-                            $user["DriverLname"];
+                            $user["DriverFname"] . " " . $user["DriverLname"];
 
                         header("Location: driver.php");
                         exit;
@@ -149,7 +146,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
         /* =========================
            STAFF LOGIN
-        ========================= */
+           ========================= */
 
         elseif ($role === "staff") {
 
@@ -179,11 +176,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
                     $user = $result->fetch_assoc();
 
-                    /*
-                    | IMPORTANT:
-                    | Staff password is taken directly from
-                    | the staff table "password" column.
-                    */
                     if (password_verify($password, $user["password"])) {
 
                         session_regenerate_id(true);
@@ -193,8 +185,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                         $_SESSION["user_id"] = $user["staffID"];
                         $_SESSION["email"] = $user["staffEmail"];
                         $_SESSION["name"] =
-                            $user["staffFname"] . " " .
-                            $user["staffLname"];
+                            $user["staffFname"] . " " . $user["staffLname"];
 
                         header("Location: staff.php");
                         exit;
@@ -210,7 +201,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
         /* =========================
            ADMIN LOGIN
-        ========================= */
+           ========================= */
 
         elseif ($role === "admin") {
 
@@ -248,8 +239,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                         $_SESSION["user_id"] = $user["adminID"];
                         $_SESSION["email"] = $user["admin_email"];
                         $_SESSION["name"] =
-                            $user["adminFname"] . " " .
-                            $user["adminLname"];
+                            $user["adminFname"] . " " . $user["adminLname"];
 
                         header("Location: admin.php");
                         exit;
@@ -263,11 +253,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         }
     }
 
-    /* Never keep password after failed login */
+    /* Clear password after failed login */
     $password = "";
 }
-
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -283,253 +273,204 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     <title>Campus Cab - Login</title>
 
-    <link rel="stylesheet" href="style.css">
 
     <style>
 
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f6f5f1;
+            color: #1c2430;
+        }
+
+
+        /* =========================
+           LOGIN PAGE
+           ========================= */
+
         .login-page {
             min-height: 100vh;
-
             display: flex;
-            justify-content: center;
             align-items: center;
-
-            background: #f6f5f1;
-
+            justify-content: center;
             padding: 15px;
         }
 
 
-        /* Same size as Forgot Password */
-
         .login-card {
             width: 100%;
             max-width: 360px;
-
             background: #ffffff;
-
             padding: 25px;
-
             border-radius: 10px;
-
-            box-shadow:
-                0 4px 15px rgba(0, 0, 0, 0.08);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
         }
 
 
-        .login-card h1 {
-            margin: 0 0 6px;
-
+        .login-card h2 {
+            margin: 0 0 7px;
             text-align: center;
-
             color: #0c2d4d;
-
-            font-size: 25px;
         }
 
 
         .login-subtitle {
-            margin: 0 0 20px;
-
             text-align: center;
-
             color: #667085;
-
-            font-size: 13px;
+            font-size: 14px;
+            margin-bottom: 20px;
         }
 
+
+        /* =========================
+           ERROR
+           ========================= */
 
         .error-message {
-            margin-bottom: 15px;
-
-            padding: 9px 10px;
-
-            border-radius: 6px;
-
             background: #fbe2df;
-
             color: #b03a2e;
-
-            font-size: 12px;
-
+            padding: 10px;
+            border-radius: 6px;
+            font-size: 13px;
+            margin-bottom: 15px;
             text-align: center;
         }
 
 
-        .role-container {
-            margin-bottom: 18px;
-        }
-
+        /* =========================
+           ROLE SELECTION
+           ========================= */
 
         .role-title {
-            margin-bottom: 9px;
-
-            color: #1c2430;
-
             font-size: 13px;
-
-            font-weight: 600;
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: #1c2430;
         }
 
 
         .role-options {
             display: flex;
-
+            justify-content: space-between;
             align-items: center;
-
-            justify-content: flex-start;
-
-            gap: 12px;
-
-            margin: 8px 0 18px;
-
-            flex-wrap: nowrap;
+            gap: 6px;
+            margin-bottom: 18px;
         }
 
 
-        .role-options label {
+        .role-option {
             display: flex;
-
             align-items: center;
-
             gap: 4px;
-
-            margin: 0;
-
-            padding: 0;
-
-            color: #1c2430;
-
             font-size: 12px;
-
-            font-weight: 500;
-
-            cursor: pointer;
-
             white-space: nowrap;
-        }
-
-
-        .role-options input[type="radio"] {
-            width: auto;
-
-            margin: 0;
-
-            padding: 0;
-
-            accent-color: #185fa5;
-
             cursor: pointer;
         }
 
+
+        .role-option input {
+            margin: 0;
+            cursor: pointer;
+        }
+
+
+        /* =========================
+           FORM
+           ========================= */
 
         .form-group {
-            margin-bottom: 16px;
+            margin-bottom: 15px;
         }
 
 
         .form-group label {
             display: block;
-
-            margin-bottom: 6px;
-
-            color: #1c2430;
-
             font-size: 13px;
-
-            font-weight: 600;
+            font-weight: bold;
+            margin-bottom: 6px;
         }
 
 
-        .form-group input[type="email"],
-        .form-group input[type="password"] {
+        .form-group input {
             width: 100%;
-
-            padding: 10px 11px;
-
+            padding: 10px;
             border: 1px solid #e2e2dc;
-
             border-radius: 6px;
-
-            background: #ffffff;
-
-            color: #1c2430;
-
-            font-size: 13px;
-
+            font-size: 14px;
             outline: none;
         }
 
 
-        .form-group input[type="email"]:focus,
-        .form-group input[type="password"]:focus {
+        .form-group input:focus {
             border-color: #185fa5;
         }
 
 
+        /* =========================
+           LOGIN BUTTON
+           ========================= */
+
         .login-button {
             width: 100%;
-
             padding: 10px;
-
             border: none;
-
             border-radius: 6px;
-
-            background: #185fa5;
-
+            background: #0c2d4d;
             color: #ffffff;
-
             font-size: 14px;
-
-            font-weight: 600;
-
+            font-weight: bold;
             cursor: pointer;
         }
 
 
         .login-button:hover {
-            background: #0c2d4d;
+            background: #185fa5;
         }
 
 
-        .login-links {
-            margin-top: 16px;
+        /* =========================
+           FORGOT PASSWORD
+           ========================= */
 
+        .forgot-link {
             text-align: center;
+            margin-top: 13px;
+            font-size: 13px;
         }
 
 
-        .login-links a {
+        .forgot-link a {
             color: #185fa5;
-
-            font-size: 13px;
-
             text-decoration: none;
         }
 
 
-        .login-links a:hover {
+        .forgot-link a:hover {
             text-decoration: underline;
         }
 
 
+        /* =========================
+           REGISTRATION
+           ========================= */
+
         .register-link {
-            margin-top: 10px;
-
             text-align: center;
-
-            color: #667085;
-
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #e2e2dc;
             font-size: 13px;
+            color: #667085;
         }
 
 
         .register-link a {
             color: #185fa5;
-
-            font-weight: 600;
-
+            font-weight: bold;
             text-decoration: none;
         }
 
@@ -548,24 +489,19 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
 <div class="login-page">
 
-
     <div class="login-card">
 
+        <h2>Campus Cab</h2>
 
-        <h1>Campus Cab</h1>
-
-
-        <p class="login-subtitle">
+        <div class="login-subtitle">
             Login to your account
-        </p>
+        </div>
 
 
         <?php if ($error !== ""): ?>
 
             <div class="error-message">
-
-                <?php echo htmlspecialchars($error); ?>
-
+                <?= htmlspecialchars($error) ?>
             </div>
 
         <?php endif; ?>
@@ -575,114 +511,97 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             method="POST"
             action="login.php"
             id="loginForm"
-            autocomplete="off"
         >
 
 
-            <div class="role-container">
+            <!-- ROLE -->
 
-                <div class="role-title">
-                    Login as:
-                </div>
-
-
-                <div class="role-options">
+            <div class="role-title">
+                Login as
+            </div>
 
 
-                    <label>
+            <div class="role-options">
 
-                        <input
-                            type="radio"
-                            name="role"
-                            value="student"
-                            <?php
-                            echo ($role === "student")
-                                ? "checked"
-                                : "";
-                            ?>
-                        >
+                <label class="role-option">
 
-                        Student
+                    <input
+                        type="radio"
+                        name="role"
+                        value="student"
+                        <?= $role === "student" ? "checked" : "" ?>
+                    >
 
-                    </label>
+                    Student
+
+                </label>
 
 
-                    <label>
+                <label class="role-option">
 
-                        <input
-                            type="radio"
-                            name="role"
-                            value="driver"
-                            <?php
-                            echo ($role === "driver")
-                                ? "checked"
-                                : "";
-                            ?>
-                        >
+                    <input
+                        type="radio"
+                        name="role"
+                        value="driver"
+                        <?= $role === "driver" ? "checked" : "" ?>
+                    >
 
-                        Driver
+                    Driver
 
-                    </label>
+                </label>
 
 
-                    <label>
+                <label class="role-option">
 
-                        <input
-                            type="radio"
-                            name="role"
-                            value="staff"
-                            <?php
-                            echo ($role === "staff")
-                                ? "checked"
-                                : "";
-                            ?>
-                        >
+                    <input
+                        type="radio"
+                        name="role"
+                        value="staff"
+                        <?= $role === "staff" ? "checked" : "" ?>
+                    >
 
-                        Staff
+                    Staff
 
-                    </label>
+                </label>
 
 
-                    <label>
+                <label class="role-option">
 
-                        <input
-                            type="radio"
-                            name="role"
-                            value="admin"
-                            <?php
-                            echo ($role === "admin")
-                                ? "checked"
-                                : "";
-                            ?>
-                        >
+                    <input
+                        type="radio"
+                        name="role"
+                        value="admin"
+                        <?= $role === "admin" ? "checked" : "" ?>
+                    >
 
-                        Admin
+                    Admin
 
-                    </label>
-
-
-                </div>
+                </label>
 
             </div>
 
 
+            <!-- EMAIL -->
+
             <div class="form-group">
 
                 <label for="email">
-                    Email Address
+                    Email
                 </label>
 
                 <input
                     type="email"
                     id="email"
                     name="email"
-                    value="<?php echo htmlspecialchars($email); ?>"
+                    value="<?= htmlspecialchars($email) ?>"
                     autocomplete="off"
                     required
                 >
 
             </div>
 
+
+            <!-- PASSWORD -->
 
             <div class="form-group">
 
@@ -694,13 +613,14 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                     type="password"
                     id="password"
                     name="password"
-                    value=""
                     autocomplete="new-password"
                     required
                 >
 
             </div>
 
+
+            <!-- LOGIN BUTTON -->
 
             <button
                 type="submit"
@@ -713,7 +633,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         </form>
 
 
-        <div class="login-links">
+        <!-- FORGOT PASSWORD -->
+
+        <div class="forgot-link">
 
             <a href="forgot_password.php">
                 Forgot Password?
@@ -722,11 +644,16 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         </div>
 
 
+        <!-- REGISTRATION -->
+
         <div class="register-link">
 
             Don't have an account?
 
-            <a href="registration.php">
+            <a
+                href="student_registration.php"
+                id="registerLink"
+            >
                 Register
             </a>
 
@@ -740,88 +667,144 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
 <script>
 
-/*
-|--------------------------------------------------------------------------
-| Clear details when changing person type
-|--------------------------------------------------------------------------
-*/
+
+/* =========================
+   ROLE BUTTONS
+   ========================= */
 
 const roleButtons =
-    document.querySelectorAll(
-        'input[name="role"]'
-    );
+    document.querySelectorAll('input[name="role"]');
+
+
+const registerLink =
+    document.getElementById("registerLink");
+
 
 const emailInput =
     document.getElementById("email");
+
 
 const passwordInput =
     document.getElementById("password");
 
 
-roleButtons.forEach(function(roleButton) {
+const loginForm =
+    document.getElementById("loginForm");
 
-    roleButton.addEventListener(
-        "change",
-        function() {
 
-            emailInput.value = "";
-            passwordInput.value = "";
 
-            emailInput.focus();
+/* =========================
+   CHANGE REGISTRATION LINK
+   ========================= */
 
-        }
-    );
+function updateRegistrationLink() {
+
+    const selectedRole =
+        document.querySelector(
+            'input[name="role"]:checked'
+        ).value;
+
+
+    if (selectedRole === "student") {
+
+        registerLink.href =
+            "student_registration.php";
+
+    }
+
+    else if (selectedRole === "staff") {
+
+        registerLink.href =
+            "staff_registration.php";
+
+    }
+
+    else if (selectedRole === "driver") {
+
+        registerLink.href =
+            "registration.php";
+
+    }
+
+    else if (selectedRole === "admin") {
+
+        registerLink.href =
+            "registration.php";
+
+    }
+
+}
+
+
+
+/* =========================
+   ROLE CHANGE
+   ========================= */
+
+roleButtons.forEach(function(button) {
+
+    button.addEventListener("change", function() {
+
+        /*
+         * Clear the email and password
+         * when changing account type.
+         */
+
+        emailInput.value = "";
+        passwordInput.value = "";
+
+        updateRegistrationLink();
+
+    });
 
 });
 
 
-/*
-|--------------------------------------------------------------------------
-| Clear password every time page loads
-|--------------------------------------------------------------------------
-*/
 
-window.addEventListener(
-    "load",
-    function() {
+/* =========================
+   SET INITIAL REGISTRATION LINK
+   ========================= */
 
+updateRegistrationLink();
+
+
+
+/* =========================
+   PREVENT PASSWORD RESTORATION
+   ========================= */
+
+passwordInput.value = "";
+
+
+
+/* =========================
+   BROWSER BACK/FORWARD CACHE
+   ========================= */
+
+window.addEventListener("pageshow", function(event) {
+
+    if (event.persisted) {
+
+        emailInput.value = "";
         passwordInput.value = "";
 
-    }
-);
+        const studentRole =
+            document.querySelector(
+                'input[name="role"][value="student"]'
+            );
 
+        if (studentRole) {
 
-/*
-|--------------------------------------------------------------------------
-| Clear old details when returning with browser Back button
-|--------------------------------------------------------------------------
-*/
-
-window.addEventListener(
-    "pageshow",
-    function(event) {
-
-        passwordInput.value = "";
-
-        if (event.persisted) {
-
-            emailInput.value = "";
-
-            const studentRadio =
-                document.querySelector(
-                    'input[name="role"][value="student"]'
-                );
-
-            if (studentRadio) {
-
-                studentRadio.checked = true;
-
-            }
+            studentRole.checked = true;
 
         }
 
+        updateRegistrationLink();
+
     }
-);
+
+});
+
 
 </script>
 
