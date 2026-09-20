@@ -1,593 +1,495 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>CampusCab | University Transport & Parcel Collection</title>
+    <title>Campus Cab - Admin Dashboard</title>
+       <link rel="stylesheet"
+       href="styles.css">
 
-    <link rel="stylesheet" href="styles.css">
 </head>
 
+
 <body>
-    <!-- ================= NAVIGATION ================= -->
-    <header class="navbar">
 
-        <div class="logo">
-            Campus<span>Cab</span>
-        </div>
 
-        <button class="menu-toggle" id="menuToggle" aria-label="Open navigation menu">
-            ☰
-        </button>
+<!-- ================= SIDEBAR ================= -->
 
-        <nav id="navMenu">
-            <a href="#home">Home</a>
-            <a href="#services">Services</a>
-            <a href="#how-it-works">How It Works</a>
-            <a href="#track">Track</a>
-            <a href="#help">Help</a>
-              <button class="register-btn" onclick="openRegisterModal()">Register</button>
-            <a href="#login" class="login-btn">Login</a>
-        </nav>
+<div class="sidebar">
 
-    </header>
+    <h2>🚕 Campus Cab</h2>
 
-    <!-- ================= HERO SECTION ================= -->
-    <main>
+    <button class="menu active" onclick="showPage('dashboard', this)">
+        🏠 Overview
+    </button>
 
-        <section class="hero" id="home">
+    <button class="menu" onclick="showPage('drivers', this)">
+        🚗 Approve Drivers
+    </button>
 
-            <div class="hero-overlay"></div>
+    <button class="menu" onclick="showPage('complaints', this)">
+        📢 Complaints
+    </button>
 
-            <div class="hero-content">
+    <button class="menu" onclick="showPage('students', this)">
+        🎓 Students
+    </button>
 
-  
+    <button class="menu" onclick="showPage('staff', this)">
+        👨‍🏫 Staff
+    </button>
+    <button class="menu" onclick="showPage('driversList', this)">
+    🚕 Drivers
+</button>
+    <button class="menu" onclick="showPage('ratings', this)">
+        ⭐ Driver Ratings
+    </button>
 
-                <p class="welcome-text">
-                    UNIVERSITY OF FORT HARE
-                </p>
+    <button class="menu" onclick="showPage('reimbursement', this)">
+        💵 Driver Reimburesements
+    </button>
 
-                <h1>
-                    Your campus.<br>
-                    <span>Your journey.</span>
-                </h1>
+    <button class="menu" onclick="showPage('driverCompensation', this)">
+        💵 Trip Earnings
+    </button>
 
-                <p class="hero-description">
-                    Convenient university transportation and parcel collection
-                    for students and staff.
-                </p>
+    <button class="menu" onclick="showPage('settings', this)">
+        ⚙️ System Settings
+    </button>
 
-                <div class="hero-buttons">
+</div>
 
-                    <a href="#request" class="btn btn-orange">
-                        Request Transport
-                    </a>
 
-                    <a href="#parcel" class="btn btn-light">
-                         Collect a Parcel
-                    </a>
 
-                </div>
+<!-- ================= MAIN ================= -->
 
-                <a href="#track" class="track-link">
-                    📍 Track My Driver
-                </a>
+<div class="main">
 
-            </div>
 
-        </section>
+<!-- ================= DASHBOARD ================= -->
 
-        <!-- ================= SERVICES ================= -->
-        <section class="services-section" id="services">
+<div id="dashboard" class="page active">
 
-            <div class="section-heading">
+    <div class="header">
 
-                <p class="section-label">OUR SERVICES</p>
+        <h1> Admin Dashboard</h1>
 
-                <h2>
-                    What can we help you with?
-                </h2>
+        <p>
+            Welcome to the Campus Cab administration system.
+        </p>
 
-                <p>
-                    CampusCab makes transportation and parcel collection
-                    simple, convenient and accessible to the university community.
-                </p>
+    </div>
+<div class="cards">
 
-            </div>
+    <div class="card">
+        <h3>Total Active Users</h3>
+        <p id="activeUsersCount">18500</p>
+    </div>
 
-            <div class="service-grid">
+    <div class="card">
+        <h3>Students</h3>
+        <p id="studentCount">17500</p>
+    </div>
 
-                <!-- Transport -->
-                <article class="service-card">
+    <div class="card">
+        <h3>Staff</h3>
+        <p id="staffCount">1000</p>
+    </div>
 
-                    <div class="service-icon">
-                        🚗
-                    </div>
+    <div class="card">
+        <h3>Drivers</h3>
+        <p id="driverCount">100</p>
+    </div>
 
-                    <h3>Campus Transport</h3>
+    <div class="card">
+        <h3>Cancelled Rides</h3>
+        <p id="cancelledRidesCount">14</p>
+    </div>
 
-                    <p>
-                        Request reliable transportation around campus
-                        and to approved university destinations.
-                    </p>
+</div>
 
-                    <a href="#request">
-                        Request Transport →
-                    </a>
 
-                </article>
+    <div class="section">
 
-                <!-- Parcel -->
-                <article class="service-card">
+        <h2>Welcome Administrator 👋</h2>
 
-                    <div class="service-icon">
-                        📦
-                    </div>
+        <p>
+            Use the menu on the left to manage Campus Cab.
+        </p>
 
-                    <h3>Parcel Collection</h3>
+        <br>
 
-                    <p>
-                        Have a parcel collected on your behalf without the hassle
-                    </p>
+        <p>
+            You can approve drivers, manage students and staff,
+            handle complaints, view payments, check ratings and
+            compensate drivers.
+        </p>
 
-                    <a href="#parcel">
-                        Request Parcel Collection →
-                    </a>
+    </div>
+<div class="section">
 
-                </article>
+    <h2>🔔 Needs Attention</h2>
 
-                <!-- Tracking -->
-                <article class="service-card">
+    <div id="alertsPanel"></div>
 
-                    <div class="service-icon">
-                        📍
-                    </div>
+</div>
+</div>
 
-                    <h3>Live Tracking</h3>
 
-                    <p>
-                        Follow your assigned driver and know where
-                        your request is in real time
-                    </p>
 
-                    <a href="#track">
-                        Track My Driver →
-                    </a>
+<!-- ================= DRIVERS ================= -->
 
-                </article>
+<!-- ================= DRIVERS LIST ================= -->
 
-                <!-- History -->
-                <article class="service-card">
+<div id="driversList" class="page">
 
-                    <div class="service-icon">
-                        🕐
-                    </div>
+    <div class="section">
 
-                    <h3>Request History</h3>
+        <h2>🚕 Drivers</h2>
 
-                    <p>
-                        Keep track of your previous transportation
-                        and parcel collection requests in one place.
-                    </p>
+        <input
+            type="text"
+            class="search"
+            placeholder="Search driver..."
+            onkeyup="searchTable(this, 'driversListTable')"
+        >
 
-                    <a href="#login">
-                        View My Requests →
-                    </a>
+        <table id="driversListTable">
 
-                </article>
+            <tr>
+                <th>Driver ID</th>
+                <th>Name</th>
+                <th>Vehicle</th>
+                <th>Status</th>
+            </tr>
 
-            </div>
+            
 
-        </section>
+        </table>
 
-        <!-- ================= HOW IT WORKS ================= -->
-        <section class="how-section" id="how-it-works">
+    </div>
 
-            <div class="section-heading">
+</div>
 
-                <p class="section-label">HOW IT WORKS</p>
 
-                <h2>
-                    Simple from request to arrival.
-                </h2>
 
-                <p>
-                    Getting transport or getting your parcel  collected on your behalfonly takes a few steps.
-                </p>
+<!-- ================= DRIVER APPROVAL ================= -->
 
-            </div>
+<div id="drivers" class="page">
 
-            <div class="steps">
+    <div class="section">
 
-                <div class="step">
+        <h2>🚗 Driver Approval</h2>
 
-                    <div class="step-number">
-                        01
-                    </div>
+        <input
+            type="text"
+            class="search"
+            placeholder="Search driver..."
+            onkeyup="searchTable(this, 'driverTable')"
+        >
 
-                    <h3>Make a Request</h3>
+ <table id="driverTable">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Licence Number</th>
+            <th>Status</th>
+            <th>Action</th>
+        </tr>
+    </thead>
 
-                    <p>
-                        Choose transportation or parcel collection
-                        and provide your request details.
-                    </p>
+    <tbody id="driverTableBody">
+    </tbody>
+</table>
+    </div>
 
-                </div>
+</div>
 
-                <div class="step">
 
-                    <div class="step-number">
-                        02
-                    </div>
 
-                    <h3>Driver Assigned</h3>
+<!-- ================= COMPLAINTS ================= -->
 
-                    <p>
-                        Your request is received and an available
-                        CampusCab driver is assigned.
-                    </p>
+<div id="complaints" class="page">
 
-                </div>
+    <div class="section">
 
+        <h2>📢 Complaints</h2>
 
-                <div class="step">
+        <table id="complaintsTable">
+            <thead>
+                <tr>
+                    <th>Student</th>
+                    <th>Driver</th>
+                    <th>Category</th>
+                    <th>Description</th>
+                    <th>Date</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="complaintsTableBody">
+            </tbody>
+        </table>
 
-                    <div class="step-number">
-                        03
-                    </div>
+    </div>
 
-                    <h3>Track Your Driver</h3>
+</div>
 
-                    <p>
-                        Follow the driver's location and receive
-                        updates about your request.
-                    </p>
 
-                </div>
+<!-- ================= STUDENTS ================= -->
 
-                <div class="step">
+<div id="students" class="page">
 
-                    <div class="step-number">
-                        04
-                    </div>
+    <div class="section">
 
-                    <h3>Arrive or Deliver</h3>
+        <h2>🎓 Students</h2>
 
-                    <p>
-                        Complete your journey or have your parcel
-                        Collected safely.
-                    </p>
+        <input
+            type="text"
+            class="search"
+            placeholder="Search student..."
+            onkeyup="searchTable(this, 'studentTable')"
+        >
 
-                </div>
+        <table id="studentTable">
+            <thead>
+                <tr>
+                    <th>Student Number</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody id="studentTableBody">
+            </tbody>
+        </table>
 
-            </div>
+    </div>
 
-        </section>
+</div>
 
-        <!-- ================= REQUEST SECTION ================= -->
-        <section class="request-section" id="request">
 
-            <div class="request-content">
 
-                <div>
+<!-- ================= STAFF ================= -->
 
-                    <p class="section-label">
-                        NEED A RIDE?
-                    </p>
+<div id="staff" class="page">
 
-                    <h2>
-                        Get where you need to go.
-                    </h2>
+    <div class="section">
 
-                    <p>
-                        Request CampusCab transportation quickly and
-                        conveniently from your phone or computer.
-                    </p>
+        <h2>👨‍🏫 Staff</h2>
 
-                </div>
+        <input
+            type="text"
+            class="search"
+            placeholder="Search staff..."
+            onkeyup="searchTable(this, 'staffTable')"
+        >
 
-                <button class="btn btn-orange request-btn" onclick="showRequestMessage('transport')">
-                    🚗 Request Transport
-                </button>
+        <table id="staffTable">
+            <thead>
+                <tr>
+                    <th>Staff Number</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody id="staffTableBody">
+            </tbody>
+        </table>
 
-            </div>
+    </div>
 
-        </section>
+</div>
 
-        <!-- ================= PARCEL SECTION ================= -->
-        <section class="parcel-section" id="parcel">
 
-            <div class="parcel-content">
 
-                <div class="parcel-icon">
-                    📦
-                </div>
 
-                <div>
 
-                    <p class="section-label">
-                        Collect SOMETHING?
-                    </p>
 
-                    <h2>
-                        Let CampusCab handle your parcel.
-                    </h2>
+<!-- ================= RATINGS ================= -->
 
-                    <p>
-                        Request collection of your
-                        parcel on your behalf.
-                    </p>
+<div id="ratings" class="page">
 
-                </div>
+    <div class="section">
 
-                <button class="btn btn-orange request-btn" onclick="showRequestMessage('parcel')">
-                    📦 Request Parcel Collection
-                </button>
+        <h2>⭐ Driver Ratings</h2>
 
-            </div>
+        <table id="ratingsTable">
 
-        </section>
+            <tr>
+                <th>Driver</th>
+                <th>Rating</th>
+                <th>Number of Reviews</th>
+                <th>Number of trips</th>
+            </tr>
 
-        <!-- ================= TRACKING ================= -->
-        <section class="tracking-section" id="track">
+            <!-- rows injected by JS -->
 
-            <div class="tracking-box">
+        </table>
 
-                <div class="tracking-icon">
-                    📍
-                </div>
+    </div>
 
-                <div>
+</div>
 
-                    <p class="section-label">
-                        LIVE LOCATION
-                    </p>
 
-                    <h2>
-                        Where is my driver?
-                    </h2>
 
-                    <p>
-                        Track your assigned CampusCab driver
-                        and follow your request in real time.
-                    </p>
+<!-- ================= Reimbursement ================= -->
 
-                </div>
+<div id="reimbursement" class="page">
 
-                <button class="btn btn-dark" onclick="trackDriver()">
-                    Track My Driver
-                </button>
+    <div class="section">
 
-            </div>
+        <h2> Driver Reimbursements</h2>
 
-        </section>
+        <table id="reimbursementTable">
+            <thead>
+                <tr>
+                    <th>Driver</th>
+                    <th>Reason</th>
+                    <th>Category</th>
+                    <th>Amount</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="reimbursementTableBody">
+            </tbody>
+        </table>
 
-        <!-- ================= UNIVERSITY COMMUNITY ================= -->
-        <section class="community-section">
+    </div>
 
-            <div class="section-heading">
+</div>
 
-                <p class="section-label">
-                    BUILT FOR OUR COMMUNITY
-                </p>
 
-                <h2>
-                    Designed for students and staff.
-                </h2>
 
-                <p>
-                    CampusCab is designed to make everyday university
-                    transportation and parcel needs easier.
-                </p>
+<!-- ================= DRIVER COMPENSATION ================= -->
 
-            </div>
+<div id="driverCompensation" class="page">
 
-            <div class="community-grid">
+    <div class="section">
 
-                <div class="community-card">
+        <h2>💵 Trip earnings</h2>
 
-                    <div class="community-icon">
-                        🎓
-                    </div>
+        <div id="compensationKpis" class="cards" style="margin-bottom:25px;"></div>
 
-                    <h3>For Students</h3>
+        <div id="compensationList"></div>
 
-                    <p>
-                        Convenient transport and parcel services
-                        for your everyday campus needs.
-                    </p>
+    </div>
 
-                </div>
+</div>
 
-                <div class="community-card">
 
-                    <div class="community-icon">
-                        👨‍🏫
-                    </div>
 
-                    <h3>For Staff</h3>
+<!-- ================= SETTINGS ================= -->
 
-                    <p>
-                        Reliable transportation and parcel support
-                        for university-related needs.
-                    </p>
+<div id="settings" class="page">
 
-                </div>
+    <div class="section">
 
-            </div>
+        <h2>⚙️ System Settings</h2>
 
-        </section>
+        <div class="compCalcBox" style="max-width:400px;">
 
-        <!-- ================= SAFETY ================= -->
-        <section class="safety-section">
+            <div class="compCalcTitle">Commission Rate</div>
 
-            <div class="safety-content">
-
-                <div>
-
-                    <p class="section-label">
-                        YOUR SAFETY MATTERS
-                    </p>
-
-                    <h2>
-                        A service you can rely on.
-                    </h2>
-
-                </div>
-
-                <div class="safety-items">
-
-                    <div>
-                        ✓
-                        <span>Driver assignment</span>
-                    </div>
-
-                    <div>
-                        ✓
-                        <span>Live location tracking</span>
-                    </div>
-
-                    <div>
-                        ✓
-                        <span>Request history</span>
-                    </div>
-
-                    <div>
-                        ✓
-                        <span>University community focused</span>
-                    </div>
-
-                </div>
-
-            </div>
-
-        </section>
-
-        <!-- ================= HELP ================= -->
-        <section class="help-section" id="help">
-
-            <p class="section-label">
-                NEED HELP?
+            <p style="color:#d1d5db; font-size:13px; margin-bottom:12px;">
+                This percentage is applied to every driver's total fare
+                when calculating their commission payment.
             </p>
 
-            <h2>
-                We're here to help
-            </h2>
-
-            <p>
-                If you have a problem with a request, driver or parcel,
-                contact CampusCab support.
-            </p>
-
-            <button class="btn btn-dark" onclick="contactSupport()">
-                Contact Support
-            </button>
-
-        </section>
-
-    </main>
-
-    <!-- ================= FOOTER ================= -->
-    <footer>
-
-        <div class="footer-content">
-
-            <div class="footer-brand">
-
-                <div class="logo footer-logo">
-                    Campus<span>Cab</span>
-                </div>
-
-                <p>
-                    University transport and parcel collection
-                </p>
-
+            <div class="settingsRow">
+                <input type="number" id="commissionRateInput" min="0" max="100" step="1" class="settingsInput">
+                <button class="approve" onclick="saveCommissionRate()">Save Changes</button>
             </div>
 
-            <div class="footer-links">
-
-                <div>
-
-                    <h4>CampusCab</h4>
-
-                    <a href="#home">Home</a>
-                    <a href="#services">Services</a>
-                    <a href="#how-it-works">How It Works</a>
-
-                </div>
-
-                <div>
-
-                    <h4>Support</h4>
-
-                    <a href="#track">Track Driver</a>
-                    <a href="#help">Help</a>
-                    <a href="#login">Login</a>
-
-                </div>
-
-            </div>
-
-        </div>
-
-        <div class="footer-bottom">
-
-            <p>
-                © 2026 CampusCab. University Transport & Parcel Collection
+            <p id="settingsSavedMsg" style="color:#4ade80; font-size:13px; margin-top:10px; display:none;">
+                ✓ Commission rate updated.
             </p>
 
         </div>
 
-    </footer>
+        <div class="compCalcBox" style="max-width:400px; margin-top:20px;">
 
-    <!-- ================= REQUEST MESSAGE ================= -->
-    <div class="modal" id="requestModal">
+            <div class="compCalcTitle">Fare Settings</div>
 
-        <div class="modal-content">
-
-            <button class="close-modal" onclick="closeModal()">
-                ×
-            </button>
-
-            <div class="modal-icon">
-                🚗
-            </div>
-
-            <h2 id="modalTitle">
-                Request CampusCab
-            </h2>
-
-            <p id="modalText">
-                Please login to continue with your request.
+            <p style="color:#d1d5db; font-size:13px; margin-bottom:12px;">
+                These values determine how a ride's total fare is calculated
+                before commission is applied.
             </p>
 
-            <button class="btn btn-orange" onclick="goToLogin()">
-                Continue to Login
-            </button>
+            <label style="font-size:13px; color:#d1d5db; display:block; margin-bottom:6px;">Base Fare (R)</label>
+            <div class="settingsRow">
+                <input type="number" id="baseFareInput" class="settingsInput" min="0" step="1">
+            </div>
+
+            <label style="font-size:13px; color:#d1d5db; display:block; margin-bottom:6px;">Price per KM (R)</label>
+            <div class="settingsRow">
+                <input type="number" id="pricePerKmInput" class="settingsInput" min="0" step="0.5">
+                <button class="approve" onclick="saveFareSettings()">Save Changes</button>
+            </div>
+
+            <p id="fareSettingsSavedMsg" style="color:#4ade80; font-size:13px; margin-top:10px; display:none;">
+                ✓ Fare settings updated.
+            </p>
+
+            <div class="compCalcBox" style="margin-top:16px; background:rgba(255,255,255,0.03);">
+                <div class="compCalcTitle">Example: 8km trip</div>
+                <div id="farePreview" class="compCalcLine"></div>
+            </div>
+
+        </div>
+
+        <div class="compCalcBox" style="max-width:400px; margin-top:20px;">
+
+            <div class="compCalcTitle">Cancellation Fee</div>
+
+            <p style="color:#d1d5db; font-size:13px; margin-bottom:12px;">
+                This amount is paid to a driver when a passenger cancels
+                a trip after pickup confirmation.
+            </p>
+
+            <div class="settingsRow">
+                <input type="number" id="cancellationFeeInput" class="settingsInput" min="0" step="1">
+                <button class="approve" onclick="saveCancellationFee()">Save Changes</button>
+            </div>
+
+                 <p id="cancellationFeeSavedMsg" style="color:#4ade80; font-size:13px; margin-top:10px; display:none;">
+                ✓ Cancellation fee updated.
+            </p>
+
+        </div>
+
+        <div class="compCalcBox" style="max-width:400px; margin-top:20px;">
+
+            <div class="compCalcTitle">Low Rating Threshold</div>
+
+            <p style="color:#d1d5db; font-size:13px; margin-bottom:12px;">
+                Drivers with an average rating below this value will be
+                flagged for review on the Driver Ratings page.
+            </p>
+
+            <div class="settingsRow">
+                <input type="number" id="lowRatingInput" class="settingsInput" min="0" max="5" step="0.1">
+                <button class="approve" onclick="saveLowRatingThreshold()">Save Changes</button>
+            </div>
+
+            <p id="lowRatingSavedMsg" style="color:#4ade80; font-size:13px; margin-top:10px; display:none;">
+                ✓ Threshold updated.
+            </p>
 
         </div>
 
     </div>
 
-    <script src="script.js"></script>
-                 
-
-<div id="registerModal" class="modal">
-  <div class="modal-content">
-    <button class="close-modal" onclick="closeModal()">&times;</button>
-    <div class="modal-icon">📝</div>
-    <h2>Select Registration Type</h2>
-    <p>Please choose how you want to register:</p>
-    
-    <select id="registerType" class="register-btn" style="color:#06457f; font-weight:600;">
-      <option value="student">Student</option>
-      <option value="driver">Driver</option>
-      <option value="staff">Staff Member</option>
-    </select>
-    <button class="btn btn-orange" onclick="handleRegister()">Continue</button>
-  </div>
 </div>
 
+</div>
+
+
+<script src="script.js?v=12"></script>
 </body>
 </html>
